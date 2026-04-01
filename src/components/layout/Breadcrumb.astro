@@ -1,0 +1,61 @@
+---
+interface Props {
+  items: {
+    label: string;
+    href?: string;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumb" aria-label="Fil d'ariane">
+  {
+    items.map((item, index) => (
+      <span class="breadcrumb-item">
+        {index > 0 && (
+          <span class="breadcrumb-sep" aria-hidden="true">
+            ›
+          </span>
+        )}
+        {item.href ? (
+          <a href={item.href}>{item.label}</a>
+        ) : (
+          <span>{item.label}</span>
+        )}
+      </span>
+    ))
+  }
+</nav>
+
+<style>
+  .breadcrumb {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-accent);
+  }
+
+  .breadcrumb-sep {
+    color: var(--color-border);
+  }
+</style>

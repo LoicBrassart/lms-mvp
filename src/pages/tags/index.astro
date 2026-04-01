@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const [courses, quests, livecodings] = await Promise.all([
+  getCollection("courses", ({ data }) => !data.draft),
+  getCollection("quests", ({ data }) => !data.draft),
+  getCollection("livecodings", ({ data }) => !data.draft),
+]);
+
+const allTags = [...courses, ...quests, ...livecodings].flatMap(
+  (entry) => entry.data.tags,
+);
+
+const tagCounts = allTags.reduce<Record<string, number>>((acc, tag) => {
+  acc[tag] = (acc[tag] ?? 0) + 1;
+  return acc;
+}, {});
+
+const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags">
+  <main class="page">
+    <h1>Tags</h1>
+    <ul class="tags-index">
+      {
+        sortedTags.map(([tag, count]) => (
+          <li>
+            <a href={`/tags/${tag}`} class="tag-index-item">
+              <span>{tag}</span>
+              <span class="tag-count">{count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

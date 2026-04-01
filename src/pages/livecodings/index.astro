@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const livecodings = await getCollection(
+  "livecodings",
+  ({ data }) => !data.draft,
+);
+livecodings.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+---
+
+<BaseLayout title="Livecoding">
+  <main class="page">
+    <h1>Livecoding</h1>
+    <ul class="content-list">
+      {
+        livecodings.map((livecoding) => (
+          <li>
+            <a href={`/livecodings/${livecoding.id}`}>
+              <span class="content-title">{livecoding.data.title}</span>
+              <span class="content-desc">{livecoding.data.description}</span>
+              <span class="content-meta">{livecoding.data.duration} min</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

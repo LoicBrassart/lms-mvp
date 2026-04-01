@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const quests = await getCollection("quests");
+  return quests.map((quest) => ({
+    params: { id: quest.id },
+    props: { quest },
+  }));
+}
+
+const { quest } = Astro.props;
+const { Content } = await render(quest);
+---
+
+<ContentLayout
+  title={quest.data.title}
+  description={quest.data.description}
+  tags={quest.data.tags}
+  draft={quest.data.draft}
+  collection="Livecoding"
+  collectionHref="/livecodings"
+  meta={[{ label: "Difficulté", value: quest.data.difficulty }]}
+>
+  <Content />
+</ContentLayout>

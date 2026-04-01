@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const livecodings = await getCollection("livecodings");
+  return livecodings.map((livecoding) => ({
+    params: { id: livecoding.id },
+    props: { livecoding },
+  }));
+}
+
+const { livecoding } = Astro.props;
+const { Content } = await render(livecoding);
+---
+
+<ContentLayout
+  title={livecoding.data.title}
+  description={livecoding.data.description}
+  tags={livecoding.data.tags}
+  draft={livecoding.data.draft}
+  collection="Quetes"
+  collectionHref="/quests"
+  meta={[
+    { label: "Durée", value: `${livecoding.data.duration} min` },
+    { label: "Objectifs", value: `${livecoding.data.objectives.length}` },
+  ]}
+>
+  <Content />
+</ContentLayout>

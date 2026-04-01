@@ -1,0 +1,67 @@
+---
+import Breadcrumb from "../components/layout/Breadcrumb.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  tags?: string[];
+  draft?: boolean;
+  collection: string;
+  collectionHref: string;
+  meta?: { label: string; value: string }[];
+}
+
+const {
+  title,
+  description,
+  tags = [],
+  draft = false,
+  collection,
+  collectionHref,
+  meta = [],
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="content-layout">
+    {draft && <div class="draft-banner">Brouillon — non publié</div>}
+    <Breadcrumb
+      items={[{ label: collection, href: collectionHref }, { label: title }]}
+    />
+
+    <header class="content-header">
+      <h1>{title}</h1>
+      <p class="description">{description}</p>
+      {
+        meta.length > 0 && (
+          <ul class="content-meta-list">
+            {meta.map((item) => (
+              <li class="content-meta-item">
+                <span class="content-meta-label">{item.label}</span>
+                <span class="content-meta-value">{item.value}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        tags.length > 0 && (
+          <ul class="tags">
+            {tags.map((tag) => (
+              <li class="tag">
+                <a href={`/tags/${tag}`}>{tag}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <article class="prose" data-pagefind-body>
+      <span data-pagefind-filter="collection">{collection}</span>
+      {tags.map((tag) => <span data-pagefind-filter="tag">{tag}</span>)}
+      <slot />
+    </article>
+  </main>
+</BaseLayout>

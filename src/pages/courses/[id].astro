@@ -1,0 +1,30 @@
+---
+import { getCollection, render } from "astro:content";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+export async function getStaticPaths() {
+  const courses = await getCollection("courses");
+  return courses.map((course) => ({
+    params: { id: course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { Content } = await render(course);
+---
+
+<ContentLayout
+  title={course.data.title}
+  description={course.data.description}
+  tags={course.data.tags}
+  draft={course.data.draft}
+  collection="Cours"
+  collectionHref="/courses"
+  meta={[
+    { label: "Niveau", value: course.data.level },
+    { label: "Durée", value: `${course.data.duration} min` },
+  ]}
+>
+  <Content />
+</ContentLayout>

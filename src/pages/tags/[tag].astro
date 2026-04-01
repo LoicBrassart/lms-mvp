@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const [courses, quests, livecodings] = await Promise.all([
+    getCollection("courses", ({ data }) => !data.draft),
+    getCollection("quests", ({ data }) => !data.draft),
+    getCollection("livecodings", ({ data }) => !data.draft),
+  ]);
+
+  const allEntries = [
+    ...courses.map((e) => ({ ...e, collection: "courses" as const })),
+    ...quests.map((e) => ({ ...e, collection: "quests" as const })),
+    ...livecodings.map((e) => ({ ...e, collection: "livecodings" as const })),
+  ];
+
+  const allTags = [...new Set(allEntries.flatMap((e) => e.data.tags))];
+
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: { entries: allEntries.filter((e) => e.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag } = Astro.params;
+const { entries } = Astro.props;
+
+const collectionLabels = {
+  courses: "Cours",
+  quests: "Quetes",
+  livecodings: "Livecoding",
+};
+
+const collectionHrefs = {
+  courses: "/courses",
+  quests: "/quests",
+  livecodings: "/livecodings",
+};
+---
+
+<BaseLayout title={`Tag : ${tag}`}>
+  <main class="page">
+    <p class="tag-page-back"><a href="/tags">← Tous les tags</a></p>
+    <h1><span class="tag-page-label">Tag :</span> {tag}</h1>
+    <ul class="content-list">
+      {
+        entries.map((entry) => (
+          <li>
+            <a href={`${collectionHrefs[entry.collection]}/${entry.id}`}>
+              <span class="content-title">{entry.data.title}</span>
+              <span class="content-desc">{entry.data.description}</span>
+              <span class="content-meta">
+                {collectionLabels[entry.collection]}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

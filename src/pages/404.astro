@@ -1,0 +1,12 @@
+---
+import ErrorPage from "../components/layout/ErrorPage.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page introuvable">
+  <ErrorPage
+    code={404}
+    title="Page introuvable"
+    description="Cette page n'existe pas ou a été déplacée."
+  />
+</BaseLayout>

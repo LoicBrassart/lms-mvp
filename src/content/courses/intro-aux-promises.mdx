@@ -1,0 +1,28 @@
+---
+title: "Introduction aux Promises"
+description: "Comprendre le fonctionnement des Promises en JavaScript pour gérer l'asynchronisme."
+tags: ["javascript", "async", "promises"]
+publishedAt: 2024-03-15
+level: intermediate
+duration: 25
+draft: false
+---
+
+## Pourquoi les Promises ?
+
+Avant les Promises, la gestion de l'asynchronisme en JavaScript reposait sur des callbacks. Le problème : les callbacks imbriqués produisent du code difficile à lire et à
+maintenir, surnommé le **callback hell**.
+
+## Anatomie d'une Promise
+
+Une Promise est un objet qui représente la complétion (ou l'échec) d'une opération
+asynchrone.
+
+```js
+const promise = new Promise((resolve, reject) => {
+  // opération asynchrone
+  resolve("succès");
+});
+```
+
+Elle peut être dans trois états : pending, fulfilled, ou rejected.

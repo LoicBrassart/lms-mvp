@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const quests = await getCollection("quests", ({ data }) => !data.draft);
+quests.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
+);
+---
+
+<BaseLayout title="Quetes">
+  <main class="page">
+    <h1>Quêtes</h1>
+    <ul class="content-list">
+      {
+        quests.map((quest) => (
+          <li>
+            <a href={`/quests/${quest.id}`}>
+              <span class="content-title">{quest.data.title}</span>
+              <span class="content-desc">{quest.data.description}</span>
+              <span class="content-meta">{quest.data.difficulty}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</BaseLayout>

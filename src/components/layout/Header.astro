@@ -1,0 +1,73 @@
+---
+const navLinks = [
+  { href: "/courses", label: "Cours" },
+  { href: "/quests", label: "Quêtes" },
+  { href: "/livecodings", label: "Livecoding" },
+  { href: "/search", label: "Recherche" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" data-pagefind-ignore>
+  <a href="/" class="site-logo">Supports</a>
+  <nav class="site-nav">
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "nav-link",
+            { active: currentPath.startsWith(link.href) },
+          ]}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .site-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+    background-color: var(--color-surface);
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+interface Props {
+  code: number;
+  title: string;
+  description: string;
+}
+
+const { code, title, description } = Astro.props;
+---
+
+<main class="not-found">
+  <p class="not-found-code">{code}</p>
+  <h1>{title}</h1>
+  <p class="not-found-desc">{description}</p>
+  <a href="/" class="not-found-link">← Retour à l'accueil</a>
+</main>
+<style>
+  .not-found {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem 1rem;
+    text-align: center;
+  }
+
+  .not-found-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--color-surface);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .not-found h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .not-found-desc {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .not-found-link {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .not-found-link:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

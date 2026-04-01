@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Recherche">
+  <main class="page">
+    <h1>Recherche</h1>
+
+    <div class="search-box">
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Rechercher dans les contenus…"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="search-filters">
+      <div class="filter-group">
+        <span class="filter-label">Collection</span>
+        <div class="filter-options" id="filter-collection">
+          <button class="filter-btn active" data-value="">Tout</button>
+          <button class="filter-btn" data-value="Cours">Cours</button>
+          <button class="filter-btn" data-value="Quetes">Quetes</button>
+          <button class="filter-btn" data-value="Livecoding">Livecoding</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Tag</span>
+        <div class="filter-options" id="filter-tag">
+          <button class="filter-btn active" data-value="">Tout</button>
+        </div>
+      </div>
+    </div>
+
+    <p id="search-status" class="search-status"></p>
+    <ul id="search-results" class="content-list"></ul>
+  </main>
+</BaseLayout>
+
+<style>
+  .search-box {
+    margin-bottom: 1.5rem;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #search-input:focus {
+    border-color: var(--color-accent);
+  }
+
+  .search-status {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    min-height: 1.2em;
+  }
+</style>
+
+<script>
+  let pagefind: any;
+  let activeCollection = "";
+  let activeTag = "";
+
+  const input = document.getElementById("search-input") as HTMLInputElement;
+  const results = document.getElementById("search-results") as HTMLUListElement;
+  const status = document.getElementById(
+    "search-status",
+  ) as HTMLParagraphElement;
+  const filterTag = document.getElementById("filter-tag") as HTMLDivElement;
+
+  async function loadPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ "/pagefind/pagefind.js");
+      await pagefind.init();
+      await populateTags();
+    } catch {
+      status.textContent =
+        "La recherche n'est disponible qu'après un build (npm run build).";
+    }
+    return pagefind;
+  }
+
+  async function populateTags() {
+    const filters = await pagefind.filters();
+    const tags: string[] = Object.keys(filters.tag ?? {}).sort();
+
+    tags.forEach((tag) => {
+      const btn = document.createElement("button");
+      btn.className = "filter-btn";
+      btn.dataset.value = tag;
+      btn.textContent = tag;
+      btn.addEventListener("click", () => setFilter("tag", tag, btn));
+      filterTag.appendChild(btn);
+    });
+  }
+
+  function setFilter(
+    type: "collection" | "tag",
+    value: string,
+    btn: HTMLButtonElement,
+  ) {
+    const groupId = type === "collection" ? "filter-collection" : "filter-tag";
+    document
+      .querySelectorAll(`#${groupId} .filter-btn`)
+      .forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    if (type === "collection") activeCollection = value;
+    else activeTag = value;
+
+    search(input.value);
+  }
+
+  async function search(query: string) {
+    results.innerHTML = "";
+
+    const pf = await loadPagefind();
+    if (!pf) return;
+
+    const filters: Record<string, string> = {};
+    if (activeCollection) filters.collection = activeCollection;
+    if (activeTag) filters.tag = activeTag;
+
+    const response = await pf.search(query || null, { filters });
+    status.textContent = response
+      ? `${response.results.length} résultat${response.results.length !== 1 ? "s" : ""}`
+      : "";
+
+    if (!response) return;
+
+    for (const result of response.results) {
+      const data = await result.data();
+      const li = document.createElement("li");
+      li.innerHTML = `
+<a href="${data.url}">
+<span class="content-title">${data.meta.title ?? "Sans titre"}</span> 
+<span class="content-desc">${data.excerpt}</span> 
+</a>
+`;
+      results.appendChild(li);
+    }
+  }
+
+  // Gestion des boutons de collection
+  document.querySelectorAll("#filter-collection .filter-btn").forEach((btn) => {
+    btn.addEventListener("click", () =>
+      setFilter(
+        "collection",
+        (btn as HTMLButtonElement).dataset.value ?? "",
+        btn as HTMLButtonElement,
+      ),
+    );
+  });
+
+  input.addEventListener("input", (e) =>
+    search((e.target as HTMLInputElement).value),
+  );
+  loadPagefind();
+</script>
