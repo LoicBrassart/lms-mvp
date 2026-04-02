@@ -1,25 +1,58 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
- 
-const courses = await getCollection('courses', ({ data }) => !data.draft);
-courses.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
---- 
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { COLLECTIONS } from "../../lib/collections";
 
-<BaseLayout title="Cours">
-<main class="page"> 
+const courses = await getCollection("courses", ({ data }) => !data.draft);
+courses.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+---
+
+<BaseLayout title="Cours" description="Tous les supports de cours disponibles.">
+  <main class="page">
     <h1>Cours</h1>
-    <ul class="content-list"> 
-        {courses.map(course => (
-        <li>
-            <a href={`/courses/${course.id}`}>
+    <ul class="content-list" id="content-list">
+      {
+        courses.map((course, index) => (
+          <li data-index={index}>
+            <div class="content-card">
+              <a class="content-link" href={`${COLLECTIONS.courses.href}/${course.id}`}>
                 <span class="content-title">{course.data.title}</span>
-                <span class="content-desc">{course.data.description}</span>
-                <span class="content-meta">{course.data.level} · {course.data.duration} 
-                min</span>
-            </a>
-        </li> 
-        ))}
-    </ul> 
-</main>
-</BaseLayout> 
+              </a>
+              <span class="content-desc">{course.data.description}</span>
+              <span class="content-meta">
+                {course.data.level} · {course.data.duration} min
+              </span>
+              {course.data.tags.length > 0 && (
+                <ul class="tags item-tags">
+                  {course.data.tags.map((tag) => (
+                    <li class="tag">
+                      <a href={`/tags/${tag}`}>{tag}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="pagination" id="pagination">
+      <button
+        class="pagination-btn"
+        id="prev-page"
+        aria-label="Page précédente">← Précédent</button
+      >
+      <span class="page-indicator" id="page-indicator"></span>
+      <button
+        class="pagination-btn"
+        id="next-page"
+        aria-label="Page suivante">Suivant →</button
+      >
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { setupPagination } from "../../lib/pagination";
+  setupPagination("content-list");
+</script>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { COLLECTIONS, getMeta } from "../../lib/collections";
 
 export async function getStaticPaths() {
   const [courses, quests, livecodings] = await Promise.all([
@@ -26,37 +27,56 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { entries } = Astro.props;
 
-const collectionLabels = {
-  courses: "Cours",
-  quests: "Quetes",
-  livecodings: "Livecoding",
-};
-
-const collectionHrefs = {
-  courses: "/courses",
-  quests: "/quests",
-  livecodings: "/livecodings",
-};
 ---
 
 <BaseLayout title={`Tag : ${tag}`}>
   <main class="page">
     <p class="tag-page-back"><a href="/tags">← Tous les tags</a></p>
     <h1><span class="tag-page-label">Tag :</span> {tag}</h1>
-    <ul class="content-list">
+    <ul class="content-list" id="content-list">
       {
-        entries.map((entry) => (
-          <li>
-            <a href={`${collectionHrefs[entry.collection]}/${entry.id}`}>
-              <span class="content-title">{entry.data.title}</span>
+        entries.map((entry, index) => (
+          <li data-index={index}>
+            <div class="content-card">
+              <a
+                class="content-link"
+                href={`${COLLECTIONS[entry.collection].href}/${entry.id}`}
+              >
+                <span class="content-title">{entry.data.title}</span>
+              </a>
               <span class="content-desc">{entry.data.description}</span>
-              <span class="content-meta">
-                {collectionLabels[entry.collection]}
-              </span>
-            </a>
+              <span class="content-meta">{getMeta(entry)}</span>
+              {entry.data.tags.length > 0 && (
+                <ul class="tags item-tags">
+                  {entry.data.tags.map((t) => (
+                    <li class="tag">
+                      <a href={`/tags/${t}`}>{t}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </li>
         ))
       }
     </ul>
+    <div class="pagination" id="pagination">
+      <button
+        class="pagination-btn"
+        id="prev-page"
+        aria-label="Page précédente">← Précédent</button
+      >
+      <span class="page-indicator" id="page-indicator"></span>
+      <button
+        class="pagination-btn"
+        id="next-page"
+        aria-label="Page suivante">Suivant →</button
+      >
+    </div>
   </main>
 </BaseLayout>
+
+<script>
+  import { setupPagination } from "../../lib/pagination";
+  setupPagination("content-list");
+</script>

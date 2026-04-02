@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { COLLECTIONS } from "../lib/collections";
 ---
 
 <BaseLayout title="Recherche">
@@ -19,23 +20,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <div class="filter-group">
         <span class="filter-label">Collection</span>
         <div class="filter-options" id="filter-collection">
-          <button class="filter-btn active" data-value="">Tout</button>
-          <button class="filter-btn" data-value="Cours">Cours</button>
-          <button class="filter-btn" data-value="Quetes">Quetes</button>
-          <button class="filter-btn" data-value="Livecoding">Livecoding</button>
+          <button class="filter-btn active" data-value="" aria-pressed="true">Tout</button>
+          <button class="filter-btn" data-value={COLLECTIONS.courses.label} aria-pressed="false">{COLLECTIONS.courses.label}</button>
+          <button class="filter-btn" data-value={COLLECTIONS.quests.label} aria-pressed="false">{COLLECTIONS.quests.label}</button>
+          <button class="filter-btn" data-value={COLLECTIONS.livecodings.label} aria-pressed="false">{COLLECTIONS.livecodings.label}</button>
         </div>
       </div>
 
       <div class="filter-group">
         <span class="filter-label">Tag</span>
         <div class="filter-options" id="filter-tag">
-          <button class="filter-btn active" data-value="">Tout</button>
+          <button class="filter-btn active" data-value="" aria-pressed="true">Tout</button>
         </div>
       </div>
     </div>
 
     <p id="search-status" class="search-status"></p>
     <ul id="search-results" class="content-list"></ul>
+    <div class="pagination" id="pagination" hidden>
+      <button class="pagination-btn" id="prev-page" aria-label="Page précédente">← Précédent</button>
+      <span class="page-indicator" id="page-indicator"></span>
+      <button class="pagination-btn" id="next-page" aria-label="Page suivante">Suivant →</button>
+    </div>
   </main>
 </BaseLayout>
 
@@ -67,19 +73,33 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     margin-bottom: 1rem;
     min-height: 1.2em;
   }
+
+  .search-status.pagefind-error {
+    background-color: #431407;
+    border: 1px solid #9a3412;
+    border-radius: var(--radius);
+    color: #fdba74;
+    padding: 0.6rem 1rem;
+  }
 </style>
 
 <script>
+  import { PAGE_SIZE } from "../lib/pagination";
+
   let pagefind: any;
   let activeCollection = "";
   let activeTag = "";
+  let allResults: any[] = [];
+  let currentPage = 0;
 
   const input = document.getElementById("search-input") as HTMLInputElement;
-  const results = document.getElementById("search-results") as HTMLUListElement;
-  const status = document.getElementById(
-    "search-status",
-  ) as HTMLParagraphElement;
+  const resultsList = document.getElementById("search-results") as HTMLUListElement;
+  const status = document.getElementById("search-status") as HTMLParagraphElement;
   const filterTag = document.getElementById("filter-tag") as HTMLDivElement;
+  const pagination = document.getElementById("pagination") as HTMLDivElement;
+  const prevBtn = document.getElementById("prev-page") as HTMLButtonElement;
+  const nextBtn = document.getElementById("next-page") as HTMLButtonElement;
+  const pageIndicator = document.getElementById("page-indicator") as HTMLSpanElement;
 
   async function loadPagefind() {
     if (pagefind) return pagefind;
@@ -90,6 +110,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     } catch {
       status.textContent =
         "La recherche n'est disponible qu'après un build (npm run build).";
+      status.classList.add("pagefind-error");
     }
     return pagefind;
   }
@@ -103,6 +124,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       btn.className = "filter-btn";
       btn.dataset.value = tag;
       btn.textContent = tag;
+      btn.setAttribute("aria-pressed", "false");
       btn.addEventListener("click", () => setFilter("tag", tag, btn));
       filterTag.appendChild(btn);
     });
@@ -114,10 +136,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     btn: HTMLButtonElement,
   ) {
     const groupId = type === "collection" ? "filter-collection" : "filter-tag";
-    document
-      .querySelectorAll(`#${groupId} .filter-btn`)
-      .forEach((b) => b.classList.remove("active"));
+    document.querySelectorAll(`#${groupId} .filter-btn`).forEach((b) => {
+      b.classList.remove("active");
+      (b as HTMLButtonElement).setAttribute("aria-pressed", "false");
+    });
     btn.classList.add("active");
+    btn.setAttribute("aria-pressed", "true");
 
     if (type === "collection") activeCollection = value;
     else activeTag = value;
@@ -125,9 +149,56 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     search(input.value);
   }
 
-  async function search(query: string) {
-    results.innerHTML = "";
+  function buildResultCard(url: string, title: string, excerpt: string): HTMLLIElement {
+    const li = document.createElement("li");
+    const card = document.createElement("div");
+    card.className = "content-card";
 
+    const link = document.createElement("a");
+    link.className = "content-link";
+    link.href = url;
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "content-title";
+    titleSpan.textContent = title;
+    link.appendChild(titleSpan);
+
+    const desc = document.createElement("span");
+    desc.className = "content-desc";
+    desc.textContent = excerpt;
+
+    card.appendChild(link);
+    card.appendChild(desc);
+    li.appendChild(card);
+    return li;
+  }
+
+  async function renderPage(page: number) {
+    resultsList.innerHTML = "";
+
+    const totalPages = Math.ceil(allResults.length / PAGE_SIZE);
+    const pageResults = allResults.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
+    for (const result of pageResults) {
+      const data = await result.data();
+      const li = buildResultCard(
+        data.url,
+        data.meta.title ?? "Sans titre",
+        data.excerpt,
+      );
+      resultsList.appendChild(li);
+    }
+
+    if (totalPages > 1) {
+      pagination.hidden = false;
+      prevBtn.disabled = page === 0;
+      nextBtn.disabled = page === totalPages - 1;
+      pageIndicator.textContent = `Page ${page + 1} / ${totalPages}`;
+    } else {
+      pagination.hidden = true;
+    }
+  }
+
+  async function search(query: string) {
     const pf = await loadPagefind();
     if (!pf) return;
 
@@ -142,20 +213,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     if (!response) return;
 
-    for (const result of response.results) {
-      const data = await result.data();
-      const li = document.createElement("li");
-      li.innerHTML = `
-<a href="${data.url}">
-<span class="content-title">${data.meta.title ?? "Sans titre"}</span> 
-<span class="content-desc">${data.excerpt}</span> 
-</a>
-`;
-      results.appendChild(li);
-    }
+    allResults = response.results;
+    currentPage = 0;
+    await renderPage(0);
   }
 
-  // Gestion des boutons de collection
+  prevBtn.addEventListener("click", async () => {
+    currentPage--;
+    await renderPage(currentPage);
+  });
+  nextBtn.addEventListener("click", async () => {
+    currentPage++;
+    await renderPage(currentPage);
+  });
+
   document.querySelectorAll("#filter-collection .filter-btn").forEach((btn) => {
     btn.addEventListener("click", () =>
       setFilter(
@@ -166,8 +237,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     );
   });
 
-  input.addEventListener("input", (e) =>
-    search((e.target as HTMLInputElement).value),
-  );
+  document.querySelectorAll("#filter-tag .filter-btn").forEach((btn) => {
+    btn.addEventListener("click", () =>
+      setFilter(
+        "tag",
+        (btn as HTMLButtonElement).dataset.value ?? "",
+        btn as HTMLButtonElement,
+      ),
+    );
+  });
+
+  let debounceTimer: ReturnType<typeof setTimeout>;
+  input.addEventListener("input", (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(
+      () => search((e.target as HTMLInputElement).value),
+      200,
+    );
+  });
   loadPagefind();
 </script>

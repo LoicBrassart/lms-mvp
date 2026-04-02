@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 :root {
   --color-bg: #0f172a;
   --color-surface: #1e293b;
@@ -128,7 +132,7 @@ body {
   gap: 1rem;
 }
 
-.content-list a {
+.content-card {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -136,12 +140,15 @@ body {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  text-decoration: none;
   transition: border-color 0.2s;
 }
 
-.content-list a:hover {
+.content-card:hover {
   border-color: var(--color-accent);
+}
+
+.content-link {
+  text-decoration: none;
 }
 
 .content-title {
@@ -294,4 +301,47 @@ body {
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination-btn {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.4rem 1rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.page-indicator {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  min-width: 5rem;
+  text-align: center;
+}
+
+/* Tags dans les cartes de liste */
+.item-tags {
+  margin-top: 0.5rem;
 }

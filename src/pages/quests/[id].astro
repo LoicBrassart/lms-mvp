@@ -1,9 +1,10 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
+import { COLLECTIONS } from "../../lib/collections";
 
 export async function getStaticPaths() {
-  const quests = await getCollection("quests");
+  const quests = await getCollection("quests", ({ data }) => !data.draft);
   return quests.map((quest) => ({
     params: { id: quest.id },
     props: { quest },
@@ -12,6 +13,10 @@ export async function getStaticPaths() {
 
 const { quest } = Astro.props;
 const { Content } = await render(quest);
+
+const relatedCourse = quest.data.courseSlug
+  ? await getEntry("courses", quest.data.courseSlug)
+  : null;
 ---
 
 <ContentLayout
@@ -19,9 +24,44 @@ const { Content } = await render(quest);
   description={quest.data.description}
   tags={quest.data.tags}
   draft={quest.data.draft}
-  collection="Livecoding"
-  collectionHref="/livecodings"
+  collection={COLLECTIONS.quests.label}
+  collectionHref={COLLECTIONS.quests.href}
   meta={[{ label: "Difficulté", value: quest.data.difficulty }]}
 >
+  {
+    relatedCourse && (
+      <div class="related-course" data-pagefind-ignore>
+        <span>Cours associé :</span>
+        <a href={`/courses/${relatedCourse.id}`}>{relatedCourse.data.title}</a>
+      </div>
+    )
+  }
   <Content />
 </ContentLayout>
+
+<style>
+  .related-course {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+  }
+
+  .related-course span {
+    color: var(--color-text-muted);
+  }
+
+  .related-course a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .related-course a:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

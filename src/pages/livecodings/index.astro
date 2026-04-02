@@ -1,31 +1,56 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { COLLECTIONS } from "../../lib/collections";
 
-const livecodings = await getCollection(
-  "livecodings",
-  ({ data }) => !data.draft,
-);
-livecodings.sort(
-  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
-);
+const livecodings = await getCollection("livecodings", ({ data }) => !data.draft);
+livecodings.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
-<BaseLayout title="Livecoding">
+<BaseLayout title="Livecoding" description="Plans et déroulés de sessions de livecoding.">
   <main class="page">
     <h1>Livecoding</h1>
-    <ul class="content-list">
+    <ul class="content-list" id="content-list">
       {
-        livecodings.map((livecoding) => (
-          <li>
-            <a href={`/livecodings/${livecoding.id}`}>
-              <span class="content-title">{livecoding.data.title}</span>
+        livecodings.map((livecoding, index) => (
+          <li data-index={index}>
+            <div class="content-card">
+              <a class="content-link" href={`${COLLECTIONS.livecodings.href}/${livecoding.id}`}>
+                <span class="content-title">{livecoding.data.title}</span>
+              </a>
               <span class="content-desc">{livecoding.data.description}</span>
               <span class="content-meta">{livecoding.data.duration} min</span>
-            </a>
+              {livecoding.data.tags.length > 0 && (
+                <ul class="tags item-tags">
+                  {livecoding.data.tags.map((tag) => (
+                    <li class="tag">
+                      <a href={`/tags/${tag}`}>{tag}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </li>
         ))
       }
     </ul>
+    <div class="pagination" id="pagination">
+      <button
+        class="pagination-btn"
+        id="prev-page"
+        aria-label="Page précédente">← Précédent</button
+      >
+      <span class="page-indicator" id="page-indicator"></span>
+      <button
+        class="pagination-btn"
+        id="next-page"
+        aria-label="Page suivante">Suivant →</button
+      >
+    </div>
   </main>
 </BaseLayout>
+
+<script>
+  import { setupPagination } from "../../lib/pagination";
+  setupPagination("content-list");
+</script>

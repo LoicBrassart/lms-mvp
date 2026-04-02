@@ -9,7 +9,8 @@ interface Props {
   draft?: boolean;
   collection: string;
   collectionHref: string;
-  meta?: { label: string; value: string }[];
+  meta?: { label: string; value: string | number }[];
+  objectives?: string[];
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   collection,
   collectionHref,
   meta = [],
+  objectives,
 } = Astro.props;
 ---
 
@@ -61,6 +63,16 @@ const {
     <article class="prose" data-pagefind-body>
       <span data-pagefind-filter="collection">{collection}</span>
       {tags.map((tag) => <span data-pagefind-filter="tag">{tag}</span>)}
+      {
+        objectives && objectives.length > 0 && (
+          <section class="objectives">
+            <h2>Objectifs</h2>
+            <ul>
+              {objectives.map((obj) => <li>{obj}</li>)}
+            </ul>
+          </section>
+        )
+      }
       <slot />
     </article>
   </main>

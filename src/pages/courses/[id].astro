@@ -1,9 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
+import { COLLECTIONS } from "../../lib/collections";
 
 export async function getStaticPaths() {
-  const courses = await getCollection("courses");
+  const courses = await getCollection("courses", ({ data }) => !data.draft);
   return courses.map((course) => ({
     params: { id: course.id },
     props: { course },
@@ -19,8 +20,8 @@ const { Content } = await render(course);
   description={course.data.description}
   tags={course.data.tags}
   draft={course.data.draft}
-  collection="Cours"
-  collectionHref="/courses"
+  collection={COLLECTIONS.courses.label}
+  collectionHref={COLLECTIONS.courses.href}
   meta={[
     { label: "Niveau", value: course.data.level },
     { label: "Durée", value: `${course.data.duration} min` },
