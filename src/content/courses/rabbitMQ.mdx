@@ -1,0 +1,197 @@
+---
+title: "Introduction à RabbitMQ"
+description: "Comprendre les concepts des message queues et leurs avantages"
+tags: ["ops", "async"]
+publishedAt: 2026-04-02
+level: advanced
+duration: 25
+draft: false
+---
+
+# 🐇 Intro à RabbitMQ
+
+---
+
+## 🎯 Objectif
+
+Comprendre :
+
+- Pourquoi utiliser un message broker
+- Les concepts fondamentaux
+- Comment fonctionne RabbitMQ
+
+---
+
+## ❓ Le problème à résoudre
+
+- OnlyFeet fonctionne "trop" bien: nos users envoient des heures de vidéos chaque jour
+- Chaque vidéo met un moment à être encodée/traitée
+- On ne veut pas bloquer les users sur la page d'upload
+  - Dans l'idéal, ils peuvent envoyer une vidéo de leur _autre_ pied pedant que la première charge !
+
+---
+
+## 💡 L'idée
+
+On sépare notre app en deux parties (micro-services):
+
+- L'une affiche les pages web et fait le feedback aux users
+- L'autre ne fait _que_ l'encodage
+
+---
+
+## ⚠️ Problèmes
+
+- Couplage fort
+- Si un service tombe → tout tombe
+- Latence
+- Difficile à scaler
+
+---
+
+## Une poste restante
+
+- La première partie stocke de la donnée et envoie un message
+- Quand la seconde est dispo, elle lit les messages et les traite
+
+---
+
+## ✅ Avantages
+
+- Découplage
+- Résilience
+- Traitement asynchrone
+
+---
+
+## 📦 Concepts fondamentaux
+
+- Producer
+- Queue
+- Consumer
+
+---
+
+## 📮 Métaphore
+
+- Producer = envoie une lettre
+- Queue = boîte aux lettres
+- Consumer = facteur
+
+---
+
+## 🔄 Synchrone vs Asynchrone
+
+### ❌ Synchrone
+
+- Bloquant
+- Fragile
+
+### ✅ Asynchrone
+
+- Non bloquant
+- Résilient
+
+---
+
+## 🐇 RabbitMQ
+
+```
+Producer → Exchange → Queue → Consumer
+```
+
+---
+
+## 🔀 Exchange
+
+Centre de tri des messages
+
+---
+
+## 🔗 Binding
+
+- Lien entre Exchange et Queue
+- Règles de routage
+
+---
+
+## 📬 Message
+
+```json
+{
+  "userId": 42,
+  "action": "signup"
+}
+```
+
+---
+
+## ✅ ACK (Acknowledgment)
+
+- Confirme le traitement
+- Sinon → retry
+
+---
+
+## ⏳ Backlog
+
+```
+Producer → Queue pleine → Consumer lent
+```
+
+👉 Les messages s’accumulent
+
+---
+
+## ⚡ Cas d’usage
+
+- Emails
+- Facturation
+- Traitement d’images
+- Microservices
+
+---
+
+## 🧠 Avantages
+
+- Découplage
+- Scalabilité
+- Résilience
+
+---
+
+## ⚠️ Inconvénients
+
+- Complexité
+- Debug difficile
+- Gestion des erreurs
+
+---
+
+## 📌 Bonnes pratiques
+
+- Messages simples (JSON)
+- Gérer les erreurs
+- Idempotence
+
+---
+
+## 🧪 À retenir
+
+> Un message broker permet de découpler les services
+> pour les rendre plus robustes et scalables
+
+---
+
+## 🚀 Suite
+
+👉 Démo RabbitMQ
+
+---
+
+## 🎓 Conclusion
+
+RabbitMQ =
+👉 systèmes plus fiables
+👉 meilleure gestion de charge
+👉 architecture moderne

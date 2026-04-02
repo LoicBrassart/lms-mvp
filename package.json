@@ -15,7 +15,8 @@
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.1.2",
-    "pagefind": "^1.4.0"
+    "pagefind": "^1.4.0",
+    "reveal.js": "^6.0.0"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

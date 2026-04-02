@@ -1,7 +1,6 @@
 ---
-import { getCollection, render } from "astro:content";
-import ContentLayout from "../../layouts/ContentLayout.astro";
-import { COLLECTIONS } from "../../lib/collections";
+import { getCollection } from "astro:content";
+import SlidesLayout from "../../layouts/SlidesLayout.astro";
 
 export async function getStaticPaths() {
   const courses = await getCollection("courses", ({ data }) => !data.draft);
@@ -12,20 +11,6 @@ export async function getStaticPaths() {
 }
 
 const { course } = Astro.props;
-const { Content } = await render(course);
 ---
 
-<ContentLayout
-  title={course.data.title}
-  description={course.data.description}
-  tags={course.data.tags}
-  draft={course.data.draft}
-  collection={COLLECTIONS.courses.label}
-  collectionHref={COLLECTIONS.courses.href}
-  meta={[
-    { label: "Niveau", value: course.data.level },
-    { label: "Durée", value: `${course.data.duration} min` },
-  ]}
->
-  <Content />
-</ContentLayout>
+<SlidesLayout title={course.data.title} body={course.body} />

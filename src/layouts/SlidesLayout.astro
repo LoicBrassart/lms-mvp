@@ -1,0 +1,40 @@
+---
+import "reveal.js/reveal.css";
+import "reveal.js/reset.css";
+import "reveal.js/theme/black.css";
+
+interface Props {
+  title: string;
+  body: string;
+}
+
+const { title, body } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+          <textarea data-template set:text={body}></textarea>
+        </section>
+      </div>
+    </div>
+    <script>
+      import Reveal from "reveal.js";
+      import Markdown from "reveal.js/plugin/markdown";
+
+      const deck = new Reveal({
+        plugins: [Markdown],
+        hash: true,
+      });
+      deck.initialize();
+    </script>
+  </body>
+</html>
