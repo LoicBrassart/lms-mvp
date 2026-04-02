@@ -19,18 +19,18 @@ import { COLLECTIONS } from "../lib/collections";
     <div class="search-filters">
       <div class="filter-group">
         <span class="filter-label">Collection</span>
-        <div class="filter-options" id="filter-collection">
-          <button class="filter-btn active" data-value="" aria-pressed="true">Tout</button>
-          <button class="filter-btn" data-value={COLLECTIONS.courses.label} aria-pressed="false">{COLLECTIONS.courses.label}</button>
-          <button class="filter-btn" data-value={COLLECTIONS.quests.label} aria-pressed="false">{COLLECTIONS.quests.label}</button>
-          <button class="filter-btn" data-value={COLLECTIONS.livecodings.label} aria-pressed="false">{COLLECTIONS.livecodings.label}</button>
+        <div class="filter-options" id="filter-collection" role="radiogroup" aria-label="Filtrer par collection">
+          <button class="filter-btn active" data-value="" role="radio" aria-checked="true" tabindex="0">Tout</button>
+          <button class="filter-btn" data-value={COLLECTIONS.courses.label} role="radio" aria-checked="false" tabindex="-1">{COLLECTIONS.courses.label}</button>
+          <button class="filter-btn" data-value={COLLECTIONS.quests.label} role="radio" aria-checked="false" tabindex="-1">{COLLECTIONS.quests.label}</button>
+          <button class="filter-btn" data-value={COLLECTIONS.livecodings.label} role="radio" aria-checked="false" tabindex="-1">{COLLECTIONS.livecodings.label}</button>
         </div>
       </div>
 
       <div class="filter-group">
         <span class="filter-label">Tag</span>
-        <div class="filter-options" id="filter-tag">
-          <button class="filter-btn active" data-value="" aria-pressed="true">Tout</button>
+        <div class="filter-options" id="filter-tag" role="radiogroup" aria-label="Filtrer par tag">
+          <button class="filter-btn active" data-value="" role="radio" aria-checked="true" tabindex="0">Tout</button>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ import { COLLECTIONS } from "../lib/collections";
     font-family: var(--font-body);
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color var(--transition-duration);
   }
 
   #search-input:focus {
@@ -84,22 +84,35 @@ import { COLLECTIONS } from "../lib/collections";
 </style>
 
 <script>
-  import { PAGE_SIZE } from "../lib/pagination";
+  import { PAGE_SIZE, getPaginationElements, updatePaginationControls } from "../lib/pagination";
 
-  let pagefind: any;
+  interface PagefindResultData {
+    url: string;
+    meta: { title: string };
+    excerpt: string;
+  }
+  interface PagefindResult {
+    data: () => Promise<PagefindResultData>;
+  }
+  interface Pagefind {
+    init: () => Promise<void>;
+    filters: () => Promise<{ tag?: Record<string, number>; collection?: Record<string, number> }>;
+    search: (query: string, options?: Record<string, unknown>) => Promise<{ results: PagefindResult[] }>;
+  }
+
+  const DEBOUNCE_DELAY = 200;
+
+  let pagefind: Pagefind | undefined;
   let activeCollection = "";
   let activeTag = "";
-  let allResults: any[] = [];
+  let cachedData: PagefindResultData[] = [];
   let currentPage = 0;
 
   const input = document.getElementById("search-input") as HTMLInputElement;
   const resultsList = document.getElementById("search-results") as HTMLUListElement;
   const status = document.getElementById("search-status") as HTMLParagraphElement;
   const filterTag = document.getElementById("filter-tag") as HTMLDivElement;
-  const pagination = document.getElementById("pagination") as HTMLDivElement;
-  const prevBtn = document.getElementById("prev-page") as HTMLButtonElement;
-  const nextBtn = document.getElementById("next-page") as HTMLButtonElement;
-  const pageIndicator = document.getElementById("page-indicator") as HTMLSpanElement;
+  const paginationEls = getPaginationElements();
 
   async function loadPagefind() {
     if (pagefind) return pagefind;
@@ -108,15 +121,14 @@ import { COLLECTIONS } from "../lib/collections";
       await pagefind.init();
       await populateTags();
     } catch {
-      status.textContent =
-        "La recherche n'est disponible qu'après un build (npm run build).";
+      status.textContent = "La recherche n'est disponible qu'après un build (npm run build).";
       status.classList.add("pagefind-error");
     }
     return pagefind;
   }
 
   async function populateTags() {
-    const filters = await pagefind.filters();
+    const filters = await pagefind!.filters();
     const tags: string[] = Object.keys(filters.tag ?? {}).sort();
 
     tags.forEach((tag) => {
@@ -124,29 +136,51 @@ import { COLLECTIONS } from "../lib/collections";
       btn.className = "filter-btn";
       btn.dataset.value = tag;
       btn.textContent = tag;
-      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("role", "radio");
+      btn.setAttribute("aria-checked", "false");
+      btn.setAttribute("tabindex", "-1");
       btn.addEventListener("click", () => setFilter("tag", tag, btn));
       filterTag.appendChild(btn);
     });
   }
 
-  function setFilter(
-    type: "collection" | "tag",
-    value: string,
-    btn: HTMLButtonElement,
-  ) {
+  function setFilter(type: "collection" | "tag", value: string, btn: HTMLButtonElement) {
     const groupId = type === "collection" ? "filter-collection" : "filter-tag";
-    document.querySelectorAll(`#${groupId} .filter-btn`).forEach((b) => {
+    document.querySelectorAll<HTMLButtonElement>(`#${groupId} [role="radio"]`).forEach((b) => {
       b.classList.remove("active");
-      (b as HTMLButtonElement).setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-checked", "false");
+      b.setAttribute("tabindex", "-1");
     });
     btn.classList.add("active");
-    btn.setAttribute("aria-pressed", "true");
+    btn.setAttribute("aria-checked", "true");
+    btn.setAttribute("tabindex", "0");
 
     if (type === "collection") activeCollection = value;
     else activeTag = value;
 
     search(input.value);
+  }
+
+  function setupRadioGroupKeyboard(groupId: string) {
+    const group = document.getElementById(groupId);
+    if (!group) return;
+    group.addEventListener("keydown", (e: KeyboardEvent) => {
+      const radios = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="radio"]'));
+      const current = radios.findIndex((r) => r === document.activeElement);
+      if (current === -1) return;
+      let next = current;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        next = (current + 1) % radios.length;
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        next = (current - 1 + radios.length) % radios.length;
+      }
+      if (next !== current) {
+        radios[next].focus();
+        radios[next].click();
+      }
+    });
   }
 
   function buildResultCard(url: string, title: string, excerpt: string): HTMLLIElement {
@@ -172,30 +206,16 @@ import { COLLECTIONS } from "../lib/collections";
     return li;
   }
 
-  async function renderPage(page: number) {
+  function renderPage(page: number) {
     resultsList.innerHTML = "";
+    const totalPages = Math.ceil(cachedData.length / PAGE_SIZE);
+    const pageData = cachedData.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
-    const totalPages = Math.ceil(allResults.length / PAGE_SIZE);
-    const pageResults = allResults.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
-
-    for (const result of pageResults) {
-      const data = await result.data();
-      const li = buildResultCard(
-        data.url,
-        data.meta.title ?? "Sans titre",
-        data.excerpt,
-      );
-      resultsList.appendChild(li);
+    for (const data of pageData) {
+      resultsList.appendChild(buildResultCard(data.url, data.meta.title ?? "Sans titre", data.excerpt));
     }
 
-    if (totalPages > 1) {
-      pagination.hidden = false;
-      prevBtn.disabled = page === 0;
-      nextBtn.disabled = page === totalPages - 1;
-      pageIndicator.textContent = `Page ${page + 1} / ${totalPages}`;
-    } else {
-      pagination.hidden = true;
-    }
+    if (paginationEls) updatePaginationControls(page, totalPages, paginationEls);
   }
 
   async function search(query: string) {
@@ -206,53 +226,50 @@ import { COLLECTIONS } from "../lib/collections";
     if (activeCollection) filters.collection = activeCollection;
     if (activeTag) filters.tag = activeTag;
 
-    const response = await pf.search(query || null, { filters });
+    const response = await pf.search(query || "", { filters });
     status.textContent = response
       ? `${response.results.length} résultat${response.results.length !== 1 ? "s" : ""}`
       : "";
 
     if (!response) return;
 
-    allResults = response.results;
+    cachedData = await Promise.all(response.results.map((r) => r.data()));
     currentPage = 0;
-    await renderPage(0);
+    renderPage(0);
   }
 
-  prevBtn.addEventListener("click", async () => {
-    currentPage--;
-    await renderPage(currentPage);
-  });
-  nextBtn.addEventListener("click", async () => {
-    currentPage++;
-    await renderPage(currentPage);
-  });
+  if (paginationEls) {
+    paginationEls.prevBtn.addEventListener("click", () => {
+      currentPage--;
+      renderPage(currentPage);
+    });
+    paginationEls.nextBtn.addEventListener("click", () => {
+      currentPage++;
+      renderPage(currentPage);
+    });
+  }
 
-  document.querySelectorAll("#filter-collection .filter-btn").forEach((btn) => {
+  document.querySelectorAll("#filter-collection [role='radio']").forEach((btn) => {
     btn.addEventListener("click", () =>
-      setFilter(
-        "collection",
-        (btn as HTMLButtonElement).dataset.value ?? "",
-        btn as HTMLButtonElement,
-      ),
+      setFilter("collection", (btn as HTMLButtonElement).dataset.value ?? "", btn as HTMLButtonElement),
     );
   });
 
-  document.querySelectorAll("#filter-tag .filter-btn").forEach((btn) => {
+  document.querySelectorAll("#filter-tag [role='radio']").forEach((btn) => {
     btn.addEventListener("click", () =>
-      setFilter(
-        "tag",
-        (btn as HTMLButtonElement).dataset.value ?? "",
-        btn as HTMLButtonElement,
-      ),
+      setFilter("tag", (btn as HTMLButtonElement).dataset.value ?? "", btn as HTMLButtonElement),
     );
   });
+
+  setupRadioGroupKeyboard("filter-collection");
+  setupRadioGroupKeyboard("filter-tag");
 
   let debounceTimer: ReturnType<typeof setTimeout>;
   input.addEventListener("input", (e) => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(
       () => search((e.target as HTMLInputElement).value),
-      200,
+      DEBOUNCE_DELAY,
     );
   });
   loadPagefind();

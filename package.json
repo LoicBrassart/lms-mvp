@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build && ./node_modules/.bin/pagefind --site dist",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
@@ -19,7 +20,11 @@
     "reveal.js": "^6.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0",
+    "eslint-plugin-astro": "^1.6.0",
     "prettier": "^3.8.1",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript-eslint": "^8.58.0"
   }
 }

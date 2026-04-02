@@ -26,7 +26,12 @@ const relatedCourse = quest.data.courseSlug
   draft={quest.data.draft}
   collection={COLLECTIONS.quests.label}
   collectionHref={COLLECTIONS.quests.href}
-  meta={[{ label: "Difficulté", value: quest.data.difficulty }]}
+  meta={[
+    { label: "Difficulté", value: quest.data.difficulty },
+    ...(quest.data.updatedAt
+      ? [{ label: "Mis à jour le", value: quest.data.updatedAt.toLocaleDateString("fr-FR") }]
+      : []),
+  ]}
 >
   {
     relatedCourse && (

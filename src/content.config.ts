@@ -7,6 +7,7 @@ const baseSchema = z.object({
   description: z.string(),
   tags: z.array(z.string()).default([]),
   publishedAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
   draft: z.boolean().default(false),
 });
 

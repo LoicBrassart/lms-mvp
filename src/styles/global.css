@@ -24,6 +24,25 @@
 
   --radius: 0.5rem;
   --max-width: 72rem;
+  --transition-duration: 0.2s;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--transition-duration);
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 
 body {
@@ -140,7 +159,7 @@ body {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-duration);
 }
 
 .content-card:hover {
@@ -221,7 +240,7 @@ body {
   padding: 0.4rem 0.8rem;
   color: var(--color-accent);
   text-decoration: none;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-duration);
 }
 
 .tag-index-item:hover {
@@ -268,8 +287,8 @@ body {
   font-size: 0.85rem;
   padding: 0.3rem 0.7rem;
   transition:
-    border-color 0.2s,
-    color 0.2s;
+    border-color var(--transition-duration),
+    color var(--transition-duration);
 }
 
 .filter-btn:hover {
@@ -321,7 +340,7 @@ body {
   font-family: var(--font-body);
   font-size: 0.9rem;
   padding: 0.4rem 1rem;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color var(--transition-duration), color var(--transition-duration);
 }
 
 .pagination-btn:hover:not(:disabled) {

@@ -22,7 +22,12 @@ const { Content } = await render(livecoding);
   draft={livecoding.data.draft}
   collection={COLLECTIONS.livecodings.label}
   collectionHref={COLLECTIONS.livecodings.href}
-  meta={[{ label: "Durée", value: `${livecoding.data.duration} min` }]}
+  meta={[
+    { label: "Durée", value: `${livecoding.data.duration} min` },
+    ...(livecoding.data.updatedAt
+      ? [{ label: "Mis à jour le", value: livecoding.data.updatedAt.toLocaleDateString("fr-FR") }]
+      : []),
+  ]}
   objectives={livecoding.data.objectives}
 >
   <Content />

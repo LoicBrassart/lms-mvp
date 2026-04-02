@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContentCard from "../../components/layout/ContentCard.astro";
 import { COLLECTIONS } from "../../lib/collections";
 
 const courses = await getCollection("courses", ({ data }) => !data.draft);
@@ -13,26 +14,14 @@ courses.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime
     <ul class="content-list" id="content-list">
       {
         courses.map((course, index) => (
-          <li data-index={index}>
-            <div class="content-card">
-              <a class="content-link" href={`${COLLECTIONS.courses.href}/${course.id}`}>
-                <span class="content-title">{course.data.title}</span>
-              </a>
-              <span class="content-desc">{course.data.description}</span>
-              <span class="content-meta">
-                {course.data.level} · {course.data.duration} min
-              </span>
-              {course.data.tags.length > 0 && (
-                <ul class="tags item-tags">
-                  {course.data.tags.map((tag) => (
-                    <li class="tag">
-                      <a href={`/tags/${tag}`}>{tag}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </li>
+          <ContentCard
+            href={`${COLLECTIONS.courses.href}/${course.id}`}
+            title={course.data.title}
+            description={course.data.description}
+            meta={`${course.data.level} · ${course.data.duration} min`}
+            tags={course.data.tags}
+            index={index}
+          />
         ))
       }
     </ul>
