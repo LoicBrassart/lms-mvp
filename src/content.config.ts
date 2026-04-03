@@ -15,7 +15,7 @@ const courses = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/courses" }),
   schema: baseSchema.extend({
     duration: z.number(),
-    level: z.enum(["beginner", "intermediate", "advanced"]),
+    level: z.enum(["unknown", "beginner", "intermediate", "advanced"]),
   }),
 });
 
