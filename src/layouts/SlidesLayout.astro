@@ -1,7 +1,8 @@
 ---
 import "reveal.js/reveal.css";
 import "reveal.js/reset.css";
-import "reveal.js/theme/black.css";
+import "reveal.js/plugin/highlight/monokai.css";
+import "../styles/slides-theme.css";
 
 interface Props {
   title: string;
@@ -11,28 +12,54 @@ interface Props {
 const { title, body } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <a href="/" class="back-to-lms">← LMS</a>
+    <div class="slide-blob slide-blob--bottom-left"></div>
+    <div class="slide-blob slide-blob--top-right"></div>
+    <div class="slide-dots"></div>
+
     <div class="reveal">
       <div class="slides">
-        <section data-markdown>
+        <section
+          data-markdown
+          data-separator="^\r?\n---\r?\n"
+          data-separator-vertical="^\r?\n--\r?\n"
+        >
           <textarea data-template set:text={body}></textarea>
         </section>
       </div>
     </div>
+
     <script>
       import Reveal from "reveal.js";
       import Markdown from "reveal.js/plugin/markdown";
+      import Highlight from "reveal.js/plugin/highlight";
 
       const deck = new Reveal({
-        plugins: [Markdown],
+        plugins: [Markdown, Highlight],
         hash: true,
+        slideNumber: true,
+        controls: true,
+        progress: true,
+        center: false,
+        transition: "fade",
+        transitionSpeed: "fast",
+        highlight: {
+          highlightOnLoad: true,
+        },
       });
       deck.initialize();
     </script>

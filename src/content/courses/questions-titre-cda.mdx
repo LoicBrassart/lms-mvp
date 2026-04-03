@@ -1,0 +1,401 @@
+---
+title: "Questions-type pour le titre CDA"
+description: "Essai de cours avec slides verticaux"
+tags: ["meta", "CDA"]
+publishedAt: 2026-04-03
+level: intermediate
+duration: 30
+draft: false
+---
+
+# Questions type pour préparation à l'oral CDA
+
+---
+
+## Q01 - Dans GraphQL, qu'est ce qu'un resolver?
+
+--
+
+### R01 - Dans GraphQL, qu'est ce qu'un resolver?
+
+Les resolvers servent à faire le mapping entre le schéma et le code, pour dire, par exemple, que telle requête va exécuter telle logique.
+
+---
+
+## Q02 - Qu'est ce que l'UI et l'UX (définir les deux)?
+
+--
+
+## R02.1 - Qu'est ce que l'UI et l'UX (définir les deux)?
+
+Le designer UI (design de l'interface utilisateur) s'occupe du lien entre la machine et l'homme. Il est en charge de la conception générale de l'interface, de la clarté de la navigation, de l'optimisation des parcours et aussi de la qualité des contenus. Son objectivité est guidée par l'efficacité. Il organise des éléments graphiques et textuels sur la base de normes techniques.
+
+[...]
+
+--
+
+## R02.2 - Qu'est ce que l'UI et l'UX (définir les deux)?
+
+Le designer UX (design de l'expérience utilisateur) a pour objectif d'insérer du "storytelling" (mise en récit) dans une expérience d'utilisation pour faire naître de l'émotion chez l'internaute ; son rôle est donc plus stratégique. Il prend en compte les attentes et les besoins de l'utilisateur. Il doit rendre le site facile à trouver, accessible, créer la confiance, facile à prendre en main, crédible et productif.
+
+---
+
+## Q03 - Qu'est ce qu'une requête HTTP et de quoi est elle constituée?
+
+--
+
+## R03.1 - Qu'est ce qu'une requête HTTP et de quoi est elle constituée?
+
+- Une requête HTTP est un ensemble de lignes envoyé au serveur par un client. Elle comprend :
+- **Une ligne de requête** : c'est une ligne précisant le type de document demandé, la méthode qui doit être appliquée, et la version du protocole utilisée. La ligne comprend trois éléments devant être séparés par un espace :
+  - La méthode
+  - L'URL
+  - La version du protocole utilisé par le client (généralement HTTP/1.0 ou HTTP/1.1)
+
+**Exemple** : GET /todos/1 HTTP/1.1
+
+[...]
+
+--
+
+## R03.2 - Qu'est ce qu'une requête HTTP et de quoi est elle constituée?
+
+- **Les champs d'en-tête de la requête** : il s'agit d'un ensemble de lignes facultatives permettant de donner des informations supplémentaires sur la requête et/ou le client (Navigateur, système d'exploitation, ...). Chacune de ces lignes est composée d'un nom qualifiant le type d'en-tête, suivi de deux points (:) et de la valeur de l'en-tête Exemple : User-Agent : Mozilla/4.0 (compatible; MSIE 5.0; Windows 95)
+
+[...]
+
+--
+
+## R03.3 - Qu'est ce qu'une requête HTTP et de quoi est elle constituée?
+
+- **Le corps de la requête** : c'est un ensemble de lignes optionnelles devant être séparées des lignes précédentes par une ligne vide et permettant par exemple un envoi de données par une commande POST lors de l'envoi de données au serveur par un formulaire.Exemple : test=toto
+
+---
+
+## Q04 - A quels types d'informations les codes de réponses suivants font-ils référence?
+
+- 10x
+- 20x
+- 30x
+- 40x
+- 50x
+
+--
+
+## R04 - A quels types d'informations les codes de réponses suivants font-ils référence?
+
+- 10x: Message d'information
+- 20x: Réussite
+- 30x: Redirection
+- 40x: Erreur dûe au client
+- 50x: Erreur dûe au serveur
+
+---
+
+## Q05 - Qu'est ce que l'intégration continue (CI)?
+
+--
+
+## R05.1 - Qu'est ce que l'intégration continue (CI)?
+
+L'intégration continue est une méthode DevOps avec laquelle les développeurs intègrent régulièrement leurs modifications de code à un référentiel centralisé, suite à quoi des opérations de création et de test sont automatiquement menées.
+
+[...]
+
+--
+
+## R05.2 - Qu'est ce que l'intégration continue (CI)?
+
+L'intégration continue désigne souvent l'étape de création ou d'intégration du processus de publication de logiciel, et implique un aspect automatisé et un aspect culturel (apprendre à intégrer fréquemment). Les principaux objectifs sont de trouver et de corriger plus rapidement les bogues, d'améliorer la qualité et de réduire le temps nécessaire pour valider et publier de nouvelles mises à jour.
+
+---
+
+## Q06 - Qu'est ce que le déploiement continu (CD)?
+
+--
+
+## R06.1 - Qu'est ce que le déploiement continu (CD)?
+
+Le déploiement continu est une stratégie de développement logiciel où toute validation de code qui réussit le cycle de test automatisé est automatiquement transférée dans l'environnement de production, propulsant ainsi les modifications vers les utilisateurs du logiciel.
+
+[...]
+
+--
+
+## R06.2 - Qu'est ce que le déploiement continu (CD)?
+
+En cas de déploiement continu, aucune intervention humaine n'empêche le transfert d'un code non éprouvé dans un logiciel en production. On ne doit y avoir recours que lorsque les équipes de développement et informatique respectent scrupuleusement les pratiques de développement dévolues à une mise en production et des procédures de test rigoureuses.
+
+[...]
+
+--
+
+## R06.3 - Qu'est ce que le déploiement continu (CD)?
+
+L'intégration, la livraison et le déploiement continus font ensemble partie de ce que l'on appelle le développement logiciel continu, et sont souvent associés aux méthodologies Agile et DevOps. La livraison continue et le déploiement continu sont directement dérivés de l'intégration continue, une méthode qui consiste à développer, compiler et tester automatiquement le nouveau code de façon à ne fusionner dans le logiciel que le code jugé correct.
+
+---
+
+## Q07 - Quelle est la différence entre Internet et le World Wide Web ?
+
+--
+
+## R07 - Quelle est la différence entre Internet et le World Wide Web ?
+
+- Internet est le "réseau des réseaux" qui lie les ordinateurs du monde entier. Ce réseau peut être utilisé de plusieurs manières, _dont_ le Web
+
+- Le WWW est constitué de l'ensemble des pages/apps en ligne et des liens hypertextes ("qui amènent à l'extérieur du texte en cours") qui les relient les unes aux autres
+
+---
+
+## Q08 - Quelles sont les différences d'API entre mobile et desktop?
+
+--
+
+## R08.1 - Quelles sont les différences d'API entre mobile et desktop?
+
+- **Mise à jour** : l'API doit être versionnée
+- **Économie de batterie** : le serveur (API) doit assumer la plus grosse charge de travail (calcul)
+- **Intolérance aux dysfonctionnements** : l'API doit tout mettre en oeuvre pour ne pas entraîner de dysfonctionnement de l'app
+
+[...]
+
+--
+
+## R08.2 - Quelles sont les différences d'API entre mobile et desktop?
+
+- **Support des notifications Push** : l'API doit être prête à utiliser cette fonctionnalité
+- **Économie de data (ou réseau Edge)** : les retours d'API doivent être minimaux, les images compressées
+- **HTTP vs HTTPS** : une API mobile doit être servie en HTTPS (contrainte)
+
+---
+
+## Q09 - Citez les verbes HTTP utilisés dans une API Rest et à quoi ils servent à chaque fois
+
+--
+
+## R09.1 - Citez les verbes HTTP utilisés dans une API Rest et à quoi ils servent à chaque fois
+
+- **GET** : Accès à la ressource.
+- **POST** : Créer une nouvelle ressource.
+- **PUT** : Modifier une ressource existante.
+- **PATCH** : Modifier une ressource de façon partielle.
+- **DELETE** : Supprimer une ressource.
+
+[...]
+
+--
+
+## R09.2 - Citez les verbes HTTP utilisés dans une API Rest et à quoi ils servent à chaque fois
+
+- **HEAD** : Même que GET, mais sans que le contenu soit retourné (La méthode HTTP HEAD demande les en-têtes qui seraient retournés si la ressource spécifiée était demandée avec une méthode HTTP GET. Une telle requête peut être envoyée avant de procéder au téléchargement d'une ressource volumineuse, par exemple pour économiser de la bande passante.)https://developer.mozilla.org/fr/docs/Web/HTTP/Methods/HEAD
+- **OPTION** : décrit les options de communication pour la ressource ciblée
+
+[...]
+
+--
+
+## R09.3 - Citez les verbes HTTP utilisés dans une API Rest et à quoi ils servent à chaque fois
+
+- **TRACE** : effectue un test de bouclage des messages le long du chemin vers la ressource cible (vous permet de tester une liaison de communication sans vous connecter à une autre machine)
+- **CONNECT** : crée une communication bidirectionnelle avec la ressource demandée. Elle peut être utilisée pour ouvrir un tunnel.
+
+---
+
+## Q10 - Qu'est ce que l'OWASP?
+
+--
+
+## R10 - Qu'est ce que l'OWASP?
+
+- L'OWASP, pour Open Web Application Security Project, désigne une organisation à but non lucratif. Sa mission principale consiste à proposer aux internautes des solutions de sécurité pour l'utilisation d'applications web.
+- Fondée au début des années 2000 aux États-Unis, l'OWASP publie régulièrement ses recommandations pour la sécurisation du Web. Elle propose, via le fruit de collaborateurs réunis en communauté, des outils et des méthodes pour sécuriser les applications web destinées aux internautes et aux entreprises.
+
+---
+
+## Q11 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+--
+
+## R11.1 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+Un patron de conception est un arrangement caractéristique de modules, reconnu comme bonne pratique pour résoudre un problème de conception d'un logiciel. Il décrit une solution standard, utilisable dans la conception de différents logiciels. Ils sont séparés en 5 catégories principales :
+
+[...]
+
+--
+
+## R11.2 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+- **Creational Design Patterns** : Ces design patterns offrent un moyen de créer des objets tout en masquant la logique de création, plutôt que d'instancier des objets directement à l'aide de l'opérateur « new ». Cela donne au programme plus de flexibilité pour décider quels objets doivent être créés pour un cas d'utilisation donné. (ex: Singleton Pattern (qui restreint l'instanciation d'une classe à un objet)
+
+[...]
+
+--
+
+## R11.3 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+- **Structural Design Patterns** : Ces design patterns concernent la composition des classes et des objets. Le concept d'héritage est utilisé pour composer des interfaces et définir des façons de composer des objets pour obtenir de nouvelles fonctionnalités. (ex: Decorator Pattern (qui ajoute de nouveaux comportements aux objets ou aux classes).
+
+[...]
+
+--
+
+## R11.4 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+- **Behavior Design Patterns** : Ces design patterns concernent spécifiquement la communication entre les objets (ex: Memento Pattern (qui permet de sauvegarder et de rétablir l'état précédent d'un objet sans révéler les détails de son implémentation))
+
+[...]
+
+--
+
+## R11.5 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+- **Concurrency Design Patterns** : Lorsque vous avez affaire à une programmation multi-threading (ex: Balking Pattern (qui prévient un objet de l'exécution d'un code s'il est incomplet ou dans un état inapproprié))
+
+[...]
+
+--
+
+## R11.6 - Qu'est ce qu'un patron de conception (“Design Pattern”) ?
+
+- **Architectural Design Patterns** : Modèles de conception utilisés sur l'architecture du système, comme MVC (modèle vue contrôleur) ou MVVM (modèle vue vue-modèle)
+
+---
+
+## Q12 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+--
+
+## R12.1 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+Une application monolithique est conçue comme une seule unité unifiée, tandis qu'une architecture de microservices est composée d'un ensemble de services plus petits et déployables indépendamment.
+
+[...]
+
+--
+
+## R12.2 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+Avantages du Monolithe:
+
+- **Agilité** : promouvoir des méthodes de travail Agile avec de petites équipes qui déploient fréquemment.
+- **Évolutivité flexible** : si un microservice atteint sa capacité de charge, de nouvelles instances de ce service peuvent être rapidement déployées sur le cluster attenant afin de réduire la pression.
+- **Déploiement continu** : les cycles de livraison sont fréquents et plus rapides
+
+[...]
+
+--
+
+## R12.3 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+- **Facilité d'administration et de test** : les équipes peuvent tester de nouvelles fonctionnalités et revenir en arrière en cas de problème. Cela facilite la mise à jour du code et accélère la commercialisation des nouvelles fonctionnalités. De plus, il est facile d'isoler et de corriger les pannes ainsi que les bugs des services individuels.
+- **Déploiement indépendant** : les microservices étant des unités individuelles, ils permettent de déployer indépendamment des fonctionnalités individuelles de manière rapide et facile.
+
+[...]
+
+--
+
+## R12.4 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+- **Flexibilité technologique** : les architectures de microservices permettent aux équipes de sélectionner les outils souhaités.
+- **Fiabilité élevée** : vous pouvez déployer des changements pour un service spécifique, sans risquer de paralyser l'ensemble de l'app.
+
+[...]
+
+--
+
+## R12.5 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+Inconvénients du Monolithe:
+
+- **Développement tentaculaire** : les microservices ajoutent de la complexité par rapport à une architecture monolithique, étant donné que vous avez plus de services dans un plus grand nombre d'emplacements créés par plusieurs équipes. Si cette multiplication n'est pas bien gérée, elle freinera le développement et dégradera les performances opérationnelles.
+- **Coûts d'infrastructure exponentiels** : chaque nouveau microservice peut impliquer ses propres coûts pour la suite de tests, les playbooks de déploiement, l'infrastructure d'hébergement, les outils de surveillance, et bien plus encore.
+
+[...]
+
+--
+
+## R12.6 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+- **Frais organisationnels supplémentaires** : les équipes doivent ajouter un autre niveau de communication et de collaboration pour coordonner les mises à jour et les interfaces.
+- **Défis de débogage** : chaque microservice possède son propre ensemble de journaux, ce qui complique le débogage. De plus, un seul processus métier peut s'exécuter sur plusieurs machines, ce qui complique encore le processus.
+
+[...]
+
+--
+
+## R12.7 - Décrire le monolithique et le microservice et donner leurs avantages et inconvénients
+
+- **Manque de standardisation** : l'absence de plateforme commune peut entraîner une prolifération des langages, des normes de journalisation et de la surveillance.
+- **Manque de responsabilité claire** : lorsque de nouveaux services sont lancés, le nombre d'équipes les exécutant augmente lui aussi. Au fil du temps, il devient difficile de connaître les services disponibles et de savoir qui contacter pour obtenir de l'aide.
+
+---
+
+## Q13 - Que sont les “CORS”?
+
+--
+
+## R13 - Que sont les “CORS”?
+
+- Le CORS (_Cross Origin Ressource Sharing_) sert à contourner un réglage de base, à savoir la Same-Origin Policy. La SOP représente quant à elle un moyen efficace de prévenir les connexions potentiellement dangereuses.
+- Lorsque le navigateur charge une page web elle lui est servie par un serveur. Il la récupère en donnant notamment trois informations : le protocole, le nom de domaine, le port. Ces trois informations constituent l'origine de la page web. Deux origines sont considérées comme identiques si ces trois informations sont identiques.
+
+[...]
+
+--
+
+## R13 - Que sont les “CORS”?
+
+- Deux situations peuvent se présenter :
+- La ressource demandée a la même origine que la page web. On dit que l'on est dans le cas Same Origin (la fameuse SOP énoncée plus haut).
+- La ressource demandée n'a pas la même origine que la page web. On dit que l'on est dans le cas Cross Origin. On veut pouvoir utiliser des ressources qui ont une origine différente. Pour pouvoir se faire, il faudra faire appel au protocole CORS pour débloquer la situation.Il est important de n'utiliser CORS que dans certains cas particuliers, et de le configurer de manière aussi restrictive que possible.
+
+---
+
+## Q14 - Comment définiriez-vous une classe?
+
+--
+
+## R14 - Comment définiriez-vous une classe?
+
+- Une classe est un modèle de données définissant la structure commune à tous les objets qui seront créés à partir d'elle.
+- Elle est donc une structure composée de propriétés (attributs) et de comportements (méthodes). C'est elle qui contient la définition des objets qui vont être créés après.
+- On pourrait considérer une classe comme un moule à objets.
+- Avec un seul moule on peut créer autant d'objets que l'on souhaite.
+
+---
+
+## Q15 - Qu'est ce que le paradigme objet?
+
+--
+
+## R15.1 - Qu'est ce que le paradigme objet?
+
+- Le paradigme objet se base sur la création et/ou l'utilisation d'objets. On parle également de POO (Programmation Orientée Objet).
+- La programmation orientée objet fait partie des paradigmes de programmation (un paradigme fait simplement référence à une approche particulière de la programmation).
+- Le paradigme impératif comporte (entre autres) la programmation procédurale et la programmation orientée objet (orientée prototype, orientée classe, orientée composant);
+
+[...]
+
+--
+
+## R15.2 - Qu'est ce que le paradigme objet?
+
+- Dans la programmation procédurale, le code est constitué de sous-routines et de fonctions (regroupées sous le nom de procédures) qui sont utilisées pour contrôler le programme.
+- L'orientation objet, quant à elle, utilise des classes et des objets.
+- Les objets ont un état défini par des attributs ou des propriétés et fournissent des méthodes
+
+---
+
+## Q16 - Qu'est ce que l'accessibilité?
+
+--
+
+## R16 - Qu'est ce que l'accessibilité?
+
+- L'accessibilité est la mise à disposition de vos sites web au plus grand nombre.
+- On pense souvent que cela ne s'adresse qu'aux personnes ayant un handicap, mais cela concerne également d'autres groupes comme ceux utilisant des appareils mobiles ou ceux qui ont des connexions internet de faible débit.
+- On peut aussi dire que l'accessibilité c'est traiter tout le monde de la même manière, et donner les mêmes opportunités à tous, peu importe leur handicaps ou les circonstances.
+
+---

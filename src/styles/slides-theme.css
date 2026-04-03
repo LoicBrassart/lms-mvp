@@ -1,0 +1,608 @@
+/* ============================================================
+   Slides custom theme — Formation IT
+   Inspired by: dark purple gradient + orange accent
+   ============================================================ */
+
+/* --- Variables --- */
+:root {
+  --s-bg-deep:      #0f0a2e;
+  --s-bg-mid:       #1e1245;
+  --s-bg-light:     #261654;
+  --s-title:        #ffffff;
+  --s-subtitle:     #c4b5fd;
+  --s-text:         #e2e8f0;
+  --s-muted:        #94a3b8;
+  --s-accent:       #f97316;
+  --s-accent-dim:   rgba(249, 115, 22, 0.25);
+  --s-purple:       #c084fc;
+  --s-surface:      rgba(255, 255, 255, 0.05);
+  --s-border:       rgba(255, 255, 255, 0.10);
+  --s-code-bg:      #0d0a1e;
+  --s-code-header:  #1a1830;
+  --s-font:         "Inter", system-ui, sans-serif;
+  --s-font-code:    "JetBrains Mono", "Fira Code", monospace;
+  --s-radius:       10px;
+}
+
+/* --- Background --- */
+html,
+body {
+  background: linear-gradient(135deg, var(--s-bg-deep) 0%, var(--s-bg-mid) 55%, var(--s-bg-deep) 100%);
+  height: 100%;
+}
+
+.reveal-viewport {
+  background: linear-gradient(135deg, var(--s-bg-deep) 0%, var(--s-bg-mid) 55%, var(--s-bg-deep) 100%);
+}
+
+.reveal {
+  font-family: var(--s-font);
+  font-size: 28px;
+  color: var(--s-text);
+}
+
+/* --- Typography --- */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: var(--s-font);
+  text-transform: none;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-shadow: none;
+  margin-bottom: 0.35em;
+}
+
+.reveal h1,
+.reveal h2 {
+  font-weight: 700;
+  color: var(--s-title);
+}
+
+.reveal h1 { font-size: 2em; }
+.reveal h2 { font-size: 1.5em; }
+
+/* h3 used as subtitle under h2 */
+.reveal h3 {
+  font-size: 0.9em;
+  font-weight: 400;
+  color: var(--s-subtitle);
+  letter-spacing: 0;
+  margin-bottom: 1em;
+}
+
+.reveal p {
+  line-height: 1.65;
+  color: var(--s-text);
+  margin-bottom: 0.75em;
+}
+
+/* --- Lists --- */
+.reveal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.4em 0;
+  display: inline-block;
+  text-align: left;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 1.3em;
+  margin-bottom: 0.55em;
+  font-size: 0.82em;
+  color: var(--s-text);
+  line-height: 1.5;
+}
+
+.reveal ul li::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  color: var(--s-accent);
+  font-size: 0.7em;
+  top: 0.2em;
+}
+
+.reveal ol {
+  padding-left: 1.4em;
+  margin: 0.4em 0;
+}
+
+.reveal ol li {
+  margin-bottom: 0.5em;
+  font-size: 0.82em;
+  color: var(--s-text);
+}
+
+/* --- Inline emphasis --- */
+.reveal strong {
+  color: var(--s-accent);
+  font-weight: 700;
+}
+
+.reveal em {
+  color: var(--s-purple);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* --- Inline code --- */
+.reveal :not(pre) > code {
+  font-family: var(--s-font-code);
+  font-size: 0.82em;
+  color: var(--s-purple);
+  background: var(--s-surface);
+  border: 1px solid var(--s-border);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+/* --- Code blocks --- */
+.reveal pre {
+  width: 88%;
+  margin: 0.7em auto;
+  border-radius: var(--s-radius);
+  overflow: hidden;
+  background: var(--s-code-bg);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--s-border);
+  font-size: 1em;
+}
+
+/* Mac-style dots bar */
+.reveal pre::before {
+  content: "";
+  display: block;
+  height: 34px;
+  background-color: var(--s-code-header);
+  background-image:
+    radial-gradient(circle, #ff5f57 5px, transparent 5px),
+    radial-gradient(circle, #febc2e 5px, transparent 5px),
+    radial-gradient(circle, #28c840 5px, transparent 5px);
+  background-size: 5px, 5px, 5px;
+  background-position: 14px center, 30px center, 46px center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--s-radius) var(--s-radius) 0 0;
+}
+
+/* Override monokai/hljs background */
+.reveal pre code,
+.reveal pre code.hljs {
+  display: block;
+  background: var(--s-code-bg) !important;
+  font-family: var(--s-font-code) !important;
+  font-size: 0.72em;
+  line-height: 1.65;
+  padding: 1.1em 1.4em !important;
+  border-radius: 0 0 var(--s-radius) var(--s-radius);
+  tab-size: 2;
+}
+
+/* --- Tables --- */
+.reveal table {
+  width: 82%;
+  margin: 0.5em auto;
+  border-collapse: collapse;
+  font-size: 0.7em;
+  border-radius: var(--s-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.reveal table thead tr {
+  background: var(--s-accent-dim);
+  border-bottom: 2px solid rgba(249, 115, 22, 0.45);
+}
+
+.reveal table th {
+  color: var(--s-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.8em;
+  padding: 0.75em 1em;
+  text-align: left;
+}
+
+.reveal table td {
+  padding: 0.65em 1em;
+  border-bottom: 1px solid var(--s-border);
+  color: var(--s-text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.reveal table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Blockquote --- */
+.reveal blockquote {
+  border-left: 3px solid var(--s-accent);
+  background: var(--s-surface);
+  border-radius: 0 var(--s-radius) var(--s-radius) 0;
+  padding: 0.8em 1.2em;
+  margin: 0.6em auto;
+  width: 80%;
+  font-style: normal;
+  color: var(--s-subtitle);
+  font-size: 0.85em;
+  box-shadow: none;
+}
+
+/* --- Horizontal rule (slide section divider) --- */
+.reveal hr {
+  border: none;
+  border-top: 1px solid var(--s-border);
+  margin: 1em auto;
+  width: 60%;
+}
+
+/* --- Links --- */
+.reveal a {
+  color: var(--s-accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.reveal a:hover {
+  color: #fb923c;
+  border-bottom-color: #fb923c;
+}
+
+/* --- Reveal controls & progress --- */
+.reveal .controls {
+  color: var(--s-accent);
+}
+
+.reveal .progress {
+  color: var(--s-accent);
+  height: 3px;
+}
+
+.reveal .progress span {
+  background: var(--s-accent);
+  transition: width 0.3s ease;
+}
+
+/* --- Slide number --- */
+.reveal .slide-number {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--s-font);
+  font-size: 0.55em;
+  bottom: 14px;
+  right: 16px;
+}
+
+/* ============================================================
+   Layout de slide — zones dédiées titre / contenu
+   ============================================================ */
+
+/*
+ * Zone titre : hauteur fixe (flex: 0 0 --title-zone)
+ *   → le titre occupe toujours la même place, qu'il soit sur 1 ou 2 lignes
+ *   → le contenu commence donc toujours à la même position Y
+ *
+ * Zone contenu : flex: 1, empile les éléments naturellement
+ */
+:root {
+  --title-zone: 20vh; /* calibré pour 2 lignes de h2 + marge */
+}
+
+/*
+ * Layout par défaut : 80% de largeur, aligné à gauche.
+ * Les 10vw de padding de chaque côté donnent exactement 80% de contenu.
+ */
+.reveal .slides section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 4vh 10vw 3vh !important;
+  box-sizing: border-box;
+  height: 100%;
+  text-align: left;
+}
+
+/* ── Zone titre : hauteur fixe, texte aligné à gauche ── */
+.reveal .slides section > h2 {
+  flex: 0 0 var(--title-zone);
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+
+  /* Alignement à gauche dans la zone */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+
+  /* Séparateur visuel bas de zone */
+  border-bottom: 1px solid rgba(249, 115, 22, 0.25);
+  padding-bottom: 2vh;
+}
+
+/* ── Zone contenu : tous les enfants non-titre ── */
+.reveal .slides section > *:not(h1):not(h2) {
+  width: 100%;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.reveal .slides section > *:not(h1):not(h2) + *:not(h1):not(h2) {
+  margin-top: 0.5em;
+}
+
+/* ── Slide de titre (h1) : exception — tout centré plein écran ── */
+.reveal .slides section:has(> h1) {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.reveal .slides section > h1 {
+  flex: none;
+  width: 100%;
+  margin: 0;
+  border-bottom: none;
+  text-align: center;
+}
+
+.reveal .slides section:has(> h1) > *:not(h1) {
+  text-align: center;
+}
+
+/* ── Listes ── */
+.reveal section ul,
+.reveal section ol {
+  display: block;
+  margin: 0;
+}
+
+/* ── Paragraphes ── */
+.reveal section p {
+  margin-bottom: 0.6em;
+}
+
+/* --- Decorative blobs (injected via SlidesLayout) --- */
+.slide-blob {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide-blob--bottom-left {
+  width: 380px;
+  height: 480px;
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 45%, #991b1b 100%);
+  border-radius: 65% 35% 58% 42% / 40% 52% 48% 60%;
+  bottom: -130px;
+  left: -90px;
+  opacity: 0.72;
+}
+
+.slide-blob--top-right {
+  width: 200px;
+  height: 260px;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+  border-radius: 40% 60% 35% 65% / 55% 45% 62% 38%;
+  top: -70px;
+  right: -55px;
+  opacity: 0.38;
+}
+
+.slide-dots {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  width: 56px;
+  height: 56px;
+  background-image: radial-gradient(circle, rgba(249, 115, 22, 0.55) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure reveal content sits above blobs */
+.reveal-viewport .reveal {
+  z-index: 1;
+  position: relative;
+}
+
+/* --- Back to LMS button (injected via SlidesLayout) --- */
+.back-to-lms {
+  position: fixed;
+  top: 14px;
+  left: 16px;
+  z-index: 100;
+  font-family: var(--s-font);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 5px 10px;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.back-to-lms:hover {
+  color: var(--s-accent);
+  background: rgba(249, 115, 22, 0.08);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+/* ============================================================
+   Templates de slides
+   Usage dans le markdown : <!-- .slide: class="layout-xxx" -->
+   ============================================================ */
+
+/* ── layout-code : slide dominée par un bloc de code ─────── */
+/*
+ * Zone titre réduite à 16vh pour laisser plus de place au code.
+ * Le bloc <pre> prend tout l'espace restant (flex: 1).
+ */
+.reveal .slides section.layout-code > h2 {
+  flex: 0 0 16vh;
+}
+
+.reveal .slides section.layout-code > pre {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.reveal .slides section.layout-code > pre code,
+.reveal .slides section.layout-code > pre code.hljs {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* ── layout-two-col : comparaison côte à côte ────────────── */
+/*
+ * Dans le markdown, entourer les colonnes avec :
+ *   <div class="cols">
+ *     <div class="col">…</div>
+ *     <div class="col">…</div>
+ *   </div>
+ * Les lignes vides à l'intérieur des <div> permettent
+ * au plugin Markdown de Reveal de parser le contenu.
+ */
+.reveal .slides section.layout-two-col > .cols {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 860px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-content: start;
+}
+
+.reveal .slides section.layout-two-col .col {
+  min-width: 0;
+  text-align: left;
+}
+
+/* Titre de colonne (premier <strong> ou <p> en tête de col) */
+.reveal .slides section.layout-two-col .col > p:first-child > strong:only-child,
+.reveal .slides section.layout-two-col .col > p:first-child:has(> strong:only-child) {
+  display: block;
+  color: var(--s-subtitle);
+  font-size: 0.8em;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--s-border);
+}
+
+/* Blocs de code dans les colonnes : taille adaptée */
+.reveal .slides section.layout-two-col .col pre {
+  width: 100%;
+  margin: 0;
+  font-size: 0.85em;
+}
+
+/* ── layout-center : concept ou définition impactante ───── */
+/*
+ * Tout est centré verticalement et horizontalement.
+ * Idéal pour une règle, une définition, un moment de pause.
+ */
+.reveal .slides section.layout-center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.reveal .slides section.layout-center > h2 {
+  flex: none;
+  height: auto;
+  overflow: visible;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 1.75em;
+  line-height: 1.25;
+  max-width: 700px;
+  text-align: center;
+}
+
+/* Ligne accent décorative sous le titre */
+.reveal .slides section.layout-center > h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--s-accent);
+  border-radius: 2px;
+  margin: 0.6em auto 0;
+}
+
+.reveal .slides section.layout-center > p {
+  text-align: center;
+  max-width: 620px;
+  color: var(--s-subtitle);
+  font-size: 0.82em;
+  line-height: 1.75;
+}
+
+/* ── layout-chapter : séparateur de chapitre / partie ───── */
+/*
+ * Usage dans le markdown :
+ *   <!-- .slide: class="layout-chapter" -->
+ *   ### 01          ← label (numéro, catégorie…)
+ *   ## Titre        ← titre du chapitre
+ *
+ * Tout est centré, pas de zone contenu.
+ */
+.reveal .slides section.layout-chapter {
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Label (h3) : petit, orange, uppercase */
+.reveal .slides section.layout-chapter > h3 {
+  flex: none;
+  font-size: 0.62em;
+  font-weight: 600;
+  color: var(--s-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-align: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ligne orange au-dessus du label */
+.reveal .slides section.layout-chapter > h3::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--s-accent);
+  border-radius: 2px;
+  margin: 0 auto 1.1em;
+}
+
+/* Titre du chapitre (h2) : grand, sans séparateur */
+.reveal .slides section.layout-chapter > h2 {
+  flex: none;
+  height: auto;
+  overflow: visible;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 2em;
+  line-height: 1.15;
+  max-width: 680px;
+  text-align: center;
+}

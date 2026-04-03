@@ -1,0 +1,238 @@
+---
+title: "Showcase — Templates de slides"
+description: "Référence visuelle de tous les layouts disponibles pour les supports de cours."
+tags: ["meta", "design"]
+publishedAt: 2026-04-03
+level: beginner
+duration: 10
+draft: false
+---
+
+# Showcase
+
+## Référence des templates de slides
+
+---
+
+<!-- .slide: class="layout-chapter" -->
+
+### 01
+
+## Slide par défaut
+
+---
+
+## Template : défaut
+
+Le template par défaut convient aux slides textuelles.
+
+- La zone titre est réservée (hauteur fixe)
+- Le contenu commence toujours à la même position Y
+- Texte et listes alignés à gauche
+
+---
+
+## Un titre volontairement plus long pour tester la zone dédiée sur deux lignes
+
+La zone titre absorbe le retour à la ligne — le contenu ci-dessous commence exactement à la même hauteur que sur la slide précédente.
+
+- Premier point
+- Deuxième point
+- Troisième point
+
+---
+
+## Texte + liste
+
+Un court paragraphe d'introduction peut précéder la liste.
+
+- **`let`** — variable réassignable
+- **`const`** — référence constante (valeur ou pointeur)
+- **`var`** — portée fonction, à éviter
+
+---
+
+<!-- .slide: class="layout-chapter" -->
+
+### 02
+
+## Code
+
+---
+
+<!-- .slide: class="layout-code" -->
+
+## Déclaration de fonction
+
+```js
+// Fonction nommée
+function addition(a, b) {
+  return a + b;
+}
+
+// Expression de fonction
+const multiplication = function (a, b) {
+  return a * b;
+};
+
+// Arrow function
+const soustraction = (a, b) => a - b;
+
+console.log(addition(2, 3)); // 5
+console.log(multiplication(4, 5)); // 20
+console.log(soustraction(9, 4)); // 5
+```
+
+---
+
+<!-- .slide: class="layout-code" -->
+
+## Portée et fermeture _(closure)_
+
+```js
+function creerCompteur() {
+  let count = 0; // variable privée, capturée
+
+  return {
+    increment() {
+      count++;
+    },
+    decrement() {
+      count--;
+    },
+    valeur() {
+      return count;
+    },
+  };
+}
+
+const compteur = creerCompteur();
+
+compteur.increment();
+compteur.increment();
+compteur.increment();
+compteur.decrement();
+
+console.log(compteur.valeur()); // 2
+```
+
+---
+
+<!-- .slide: class="layout-chapter" -->
+
+### 03
+
+## Deux colonnes
+
+---
+
+<!-- .slide: class="layout-two-col" -->
+
+## `function` vs arrow function
+
+<div class="cols">
+<div class="col">
+
+**`function`**
+
+- Possède son propre `this`
+- Hoistée avant exécution
+- Peut être constructeur (`new`)
+- Syntaxe verbeuse
+
+</div>
+<div class="col">
+
+**Arrow function**
+
+- Hérite du `this` parent
+- Non hoistée
+- Ne peut pas être constructeur
+- Syntaxe concise
+
+</div>
+</div>
+
+---
+
+<!-- .slide: class="layout-two-col" -->
+
+## Avant / Après les Promises
+
+<div class="cols">
+<div class="col">
+
+**Callbacks** _(avant)_
+
+```js
+lireFichier("a.txt", (err, data) => {
+  if (err) throw err;
+  traiter(data, (err, result) => {
+    if (err) throw err;
+    sauver(result, (err) => {
+      if (err) throw err;
+      console.log("OK");
+    });
+  });
+});
+```
+
+</div>
+<div class="col">
+
+**Promises** _(après)_
+
+```js
+lireFichier("a.txt")
+  .then((data) => traiter(data))
+  .then((result) => sauver(result))
+  .then(() => console.log("OK"))
+  .catch((err) => console.error(err));
+```
+
+</div>
+</div>
+
+---
+
+<!-- .slide: class="layout-chapter" -->
+
+### 04
+
+## Concept central
+
+---
+
+<!-- .slide: class="layout-center" -->
+
+## En JavaScript, les fonctions sont des citoyens de première classe
+
+Elles peuvent être assignées à des variables, passées en argument, et retournées par d'autres fonctions — exactement comme n'importe quelle valeur.
+
+---
+
+<!-- .slide: class="layout-center" -->
+
+## Ne jamais utiliser `var`
+
+`let` et `const` ont une portée de bloc prévisible.<br>
+`var` a une portée de fonction et est hoistée — source de bugs silencieux.
+
+---
+
+<!-- .slide: class="layout-chapter" -->
+
+### 05
+
+## Tableau
+
+---
+
+## Comparatif des déclarations
+
+| Syntaxe                | Hoisting | `this` propre | `new`          | Usage      |
+| ---------------------- | -------- | ------------- | -------------- | ---------- |
+| `function f()`         | ✅ Oui   | ✅ Oui        | ✅ Oui         | Général    |
+| `const f = function()` | ❌ Non   | ✅ Oui        | ✅ Oui         | Expression |
+| `const f = () =>`      | ❌ Non   | ❌ Non        | ❌ Non         | Callbacks  |
+| `class C`              | ❌ Non   | ✅ Oui        | ✅ Obligatoire | Objets     |
