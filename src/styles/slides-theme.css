@@ -5,34 +5,44 @@
 
 /* --- Variables --- */
 :root {
-  --s-bg-deep:      #0f0a2e;
-  --s-bg-mid:       #1e1245;
-  --s-bg-light:     #261654;
-  --s-title:        #ffffff;
-  --s-subtitle:     #c4b5fd;
-  --s-text:         #e2e8f0;
-  --s-muted:        #94a3b8;
-  --s-accent:       #f97316;
-  --s-accent-dim:   rgba(249, 115, 22, 0.25);
-  --s-purple:       #c084fc;
-  --s-surface:      rgba(255, 255, 255, 0.05);
-  --s-border:       rgba(255, 255, 255, 0.10);
-  --s-code-bg:      #0d0a1e;
-  --s-code-header:  #1a1830;
-  --s-font:         "Inter", system-ui, sans-serif;
-  --s-font-code:    "JetBrains Mono", "Fira Code", monospace;
-  --s-radius:       10px;
+  --s-bg-deep: #0f0a2e;
+  --s-bg-mid: #1e1245;
+  --s-bg-light: #261654;
+  --s-title: #ffffff;
+  --s-subtitle: #c4b5fd;
+  --s-text: #e2e8f0;
+  --s-muted: #94a3b8;
+  --s-accent: #f97316;
+  --s-accent-dim: rgba(249, 115, 22, 0.25);
+  --s-purple: #c084fc;
+  --s-surface: rgba(255, 255, 255, 0.05);
+  --s-border: rgba(255, 255, 255, 0.1);
+  --s-code-bg: #0d0a1e;
+  --s-code-header: #1a1830;
+  --s-font: "Inter", system-ui, sans-serif;
+  --s-font-code: "JetBrains Mono", "Fira Code", monospace;
+  --s-radius: 10px;
 }
 
 /* --- Background --- */
 html,
 body {
-  background: linear-gradient(135deg, var(--s-bg-deep) 0%, var(--s-bg-mid) 55%, var(--s-bg-deep) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--s-bg-deep) 0%,
+    var(--s-bg-mid) 55%,
+    var(--s-bg-deep) 100%
+  );
   height: 100%;
 }
 
 .reveal-viewport {
-  background: linear-gradient(135deg, var(--s-bg-deep) 0%, var(--s-bg-mid) 55%, var(--s-bg-deep) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--s-bg-deep) 0%,
+    var(--s-bg-mid) 55%,
+    var(--s-bg-deep) 100%
+  );
 }
 
 .reveal {
@@ -60,16 +70,21 @@ body {
   color: var(--s-title);
 }
 
-.reveal h1 { font-size: 1.9em; }
-.reveal h2 { font-size: 1.35em; }
+.reveal h1 {
+  font-size: 1.9em;
+}
+.reveal h2 {
+  font-size: 1.35em;
+}
 
-/* h3 used as subtitle under h2 */
+/* h3 : sous-titre de section dans le contenu d'une slide */
 .reveal h3 {
-  font-size: 0.9em;
-  font-weight: 400;
-  color: var(--s-subtitle);
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--s-title);
   letter-spacing: 0;
-  margin-bottom: 1em;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
 }
 
 .reveal p {
@@ -83,7 +98,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0.4em 0;
-  display: inline-block;
+  display: block;
   text-align: left;
 }
 
@@ -105,6 +120,24 @@ body {
   top: 0.2em;
 }
 
+/* Listes imbriquées : taille et bullet réduits */
+.reveal ul li ul {
+  margin-top: 0.2em;
+  margin-bottom: 0;
+}
+
+.reveal ul li ul li {
+  font-size: 0.88em;
+  margin-bottom: 0.2em;
+}
+
+.reveal ul li ul li::before {
+  content: "–";
+  font-size: 0.85em;
+  color: var(--s-muted);
+  top: 0.1em;
+}
+
 .reveal ol {
   padding-left: 1.4em;
   margin: 0.4em 0;
@@ -114,6 +147,30 @@ body {
   margin-bottom: 0.5em;
   font-size: 0.82em;
   color: var(--s-text);
+}
+
+/* --- Images --- */
+.reveal .slides section img {
+  max-height: 45vh;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Slide image seule : centrée dans la zone contenu */
+.reveal .slides section:has(> img:only-child),
+.reveal .slides section:not(:has(> h1)):not(:has(> h2)):has(> img) {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slide h2 + image : l'image prend toute la hauteur restante */
+.reveal .slides section:has(> h2):has(> img) > img {
+  flex: 1;
+  min-height: 0;
+  max-height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 /* --- Inline emphasis --- */
@@ -146,8 +203,10 @@ body {
   border-radius: var(--s-radius);
   overflow: hidden;
   background: var(--s-code-bg);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--s-border);
-  font-size: 1em;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.55),
+    0 0 0 1px var(--s-border);
+  font-size: 0.85em;
 }
 
 /* Mac-style dots bar */
@@ -161,7 +220,10 @@ body {
     radial-gradient(circle, #febc2e 5px, transparent 5px),
     radial-gradient(circle, #28c840 5px, transparent 5px);
   background-size: 5px, 5px, 5px;
-  background-position: 14px center, 30px center, 46px center;
+  background-position:
+    14px center,
+    30px center,
+    46px center;
   background-repeat: no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: var(--s-radius) var(--s-radius) 0 0;
@@ -291,11 +353,20 @@ body {
   --title-zone: 14vh; /* calibré pour 2 lignes de h2 + marge */
 }
 
+/* Neutralise text-align:center hérité de .reveal .slides (même sélecteur, cascade gagnante) */
+.reveal .slides {
+  text-align: left;
+}
+
 /*
- * Layout par défaut : 80% de largeur, aligné à gauche.
- * Les 10vw de padding de chaque côté donnent exactement 80% de contenu.
+ * Layout par défaut : aligné à gauche.
+ * .present est inclus pour matcher la spécificité (0,3,1) de la règle Reveal.js
+ * qui force display:block — notre CSS chargé après gagne par ordre de cascade.
  */
-.reveal .slides section {
+.reveal .slides section,
+.reveal .slides section.present,
+.reveal .slides section > section,
+.reveal .slides section > section.present {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -322,7 +393,7 @@ body {
 
   /* Séparateur visuel bas de zone */
   border-bottom: 1px solid rgba(249, 115, 22, 0.25);
-  padding-bottom: 2vh;
+  padding-bottom: 1vh;
 }
 
 /* ── Zone contenu : tous les enfants non-titre ── */
@@ -330,6 +401,11 @@ body {
   width: 100%;
   text-align: left;
   flex-shrink: 0;
+}
+
+/* Premier élément après le titre : respiration */
+.reveal .slides section > h2 + * {
+  margin-top: 0.6em;
 }
 
 .reveal .slides section > *:not(h1):not(h2) + *:not(h1):not(h2) {
@@ -426,7 +502,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   padding: 5px 10px;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    border-color 0.2s;
   backdrop-filter: blur(4px);
 }
 

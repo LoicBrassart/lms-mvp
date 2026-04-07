@@ -59,7 +59,7 @@ def process_shape(shape, slide_num, img_count, images_dir, links, stem, assets_u
     for para in shape.text_frame.paragraphs:
         parts = []
         for run in para.runs:
-            text = run.text
+            text = run.text.replace('\u2018', "'").replace('\u2019', "'")
             if not text:
                 continue
 
@@ -82,7 +82,7 @@ def process_shape(shape, slide_num, img_count, images_dir, links, stem, assets_u
             continue
 
         if is_title:
-            line = f"# {line}"
+            line = f"## {line}"
         elif para.level > 0:
             line = "  " * para.level + "- " + line
 
@@ -108,8 +108,14 @@ def extract(pptx_path: str, output_root: str | None = None, assets_root: str | N
     images_dir = assets_dir / "images"
     images_dir.mkdir(parents=True, exist_ok=True)
 
-    # Chemin URL absolu : on déduit /assets à partir du nom du dossier racine public/assets
-    assets_url_base = "/" + Path(assets_root).as_posix().lstrip("/") if assets_root else "/assets"
+    # Chemin URL absolu : on retire le préfixe "public/" car Astro sert public/ à la racine
+    if assets_root:
+        url_path = Path(assets_root).as_posix().lstrip("/")
+        if url_path.startswith("public/"):
+            url_path = url_path[len("public/"):]
+        assets_url_base = "/" + url_path
+    else:
+        assets_url_base = "/assets"
 
     prs = Presentation(src)
     slides_md = []
@@ -130,7 +136,7 @@ def extract(pptx_path: str, output_root: str | None = None, assets_root: str | N
     # Frontmatter
     n_slides = len(prs.slides)
     first_title = next(
-        (line[2:].strip() for slide in slides_md for line in slide.splitlines() if line.startswith("# ")),
+        (line[3:].strip() for slide in slides_md for line in slide.splitlines() if line.startswith("## ")),
         stem,
     )
     frontmatter = (
