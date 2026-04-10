@@ -1,0 +1,341 @@
+---
+title: "Figma 04 - Les propriétés de composant"
+description: "migrated content"
+tags: []
+publishedAt: 2026-04-10
+difficulty: easy
+draft: false
+---
+
+# Les propriétés de composant
+
+Les composants Figma peuvent comprendre des propriétés permettant de modifier leur aspect. Les propriétés de composant permettent de réduire le nombre d'éléments d'un design system et par extension, de réduire le temps de conception.
+
+![boutons ](/assets/Figma_04_coposant/images/img_01.png)
+[_Source_](https://www.toptal.com/designers/ui/figma-button-component)
+
+La propriété _variant_ (variant)
+Nous avions précédemment abordé les variantes, au sein de la quête _Figma - Les composants_. Pour rappel, les variantes permettent de **définir les différents aspects d'un composant**, et de créer des variations sur des éléments tels que la couleur, la taille, l'ajout d'un effet, etc. Dans le cadre d'un bouton par exemple, il est possible de créer des variantes pour l'état de survol, de focus, désactivé etc.
+
+## Création du bouton
+
+Dans un premier temps, assure toi que ton bouton est bien un composant.
+
+![bouton-composant](/assets/Figma_04_coposant/images/img_02.jpg)
+
+Pour rappel, l'icône de ton composant devrait ressembler à ceci :
+
+![icon component](/assets/Figma_04_coposant/images/img_03.jpg)
+
+## Ajout de la propriété
+
+Ajoutes par la suite le variant depuis la petite icône de variant en haut à droite de ton composant :
+
+![ajout variant](/assets/Figma_04_coposant/images/img_04.jpg)
+
+## Définition de la propriété
+
+Nous souhaitons que notre bouton ait un changement visuel lors d'un passage au survol.
+
+Nous allons donc changer la couleur du nouveau variant, apparu en dessous, pour induire ce changement visuel.
+
+![changement couleur bouton](/assets/Figma_04_coposant/images/img_05.jpg)
+
+Lorsque nous ajoutons une nouvelle propriété de type variant, deux choses se passent :
+
+- Figma crée la propriété, qui s'appellera par défaut _Property 1_
+- Figma crée le variant, qui s'appellera par défaut _Variant2_ (puis Variant3, 4... en fonction du nombre de variants que tu souhaites créer).
+
+![valeur par défaut et variant](/assets/Figma_04_coposant/images/img_06.jpg)
+
+Dans la constitution d'un design system logique et clair, ces dénominations ne sont pas suffisamment compréhensibles.
+Il faut de ce fait dès le départ engager de bonnes pratiques afin que le nom de la propriété et le variant restent clairs.
+
+## Configuration de la propriété
+
+Dans ta barre latérale droite, tu retrouves la propriété et les variants liés.
+
+- Commence par renommer _Property 1_ : ici, comme il s'agit d'un changement d'état de notre bouton, nous allons privilégier un nouveau nom tel que **State** ou encore **StateButton**. Ces dénominations permettent de mieux comprendre que ce variant est inhérent au changement d'état de notre bouton.
+
+- Il ne nous reste plus qu'à appliquer par la suite le changement de noms pour nos variants. Tu retrouveras notamment :
+  - Default : qui correspond à la version par défaut. Ce nom peut rester tel quel.
+
+  - Variant2 : qui, dans ce cas, manque de clarté quant à l'état qu'il représente. Pour rappel, nous souhaitons réaliser un bouton qui réagira au survol. De ce fait nous allons privilégier un verbe d'action en anglais : **Hovered**. Ce dernier permettra d'indiquer de manière plus claire que le bouton réagit au survol.
+
+![hovered button](/assets/Figma_04_coposant/images/img_07.jpg)
+
+<Alert type="info">
+
+De manière générale, il est vivement conseillé de privilégier l'anglais pour plusieurs raisons (travail collaboratif avec des personnes non francophones, design system clair et logique...). Pense de ce fait à choisir des verbes et verbes d'actions permettant de représenter de manière claire les actions qui se réalisation lorsque l'utilisateur interagira avec les composants.
+
+</Alert>
+
+## Finitions
+
+Un composant pourra avoir d'autres variants. Par exemple, nous nous sommes arrêtés ici à un bouton réagissant au survol, mais il sera possible par exemple de créer d'autres variants, comme par exemple un état lorsque l'on presse le bouton.
+Il est possible de créer une nouvelle déclinaison de ce bouton de 2 manières différentes :
+
+En sélectionnant l'encadré en pointillés de ton composant, tu pourras ajouter un variant via le panneau latéral droit :
+
+- En cliquant toujours sur l'icône d'ajout d'un variant.
+- Directement depuis le composant en ajoutant un nouveau variant via le petit "+" en pas de l'encadré en pointillés de ce dernier :
+
+![ajouter un variant](/assets/Figma_04_coposant/images/img_08.jpg)
+
+# La propriété _texte_ (text content)
+
+Les propriétés de texte sont utilisées pour les textes qui sont amenés à être édités sur différentes instances. Par exemple, un composant bouton pourra voir son label varier selon ses usages. Plutôt que d'avoir à double cliquer sur chaque instance pour éditer le calque de texte, celui-ci est éditable directement depuis le panneau de droite.
+Nous allons reprendre un exemple de bouton dans ce cas de figure.
+
+## Définition de la propriété
+
+Dans notre exemple, nous souhaiterions que le texte de notre bouton puisse changer, pour passer par exemple de "Valider" à "Annuler".
+Pour le moment, seul le texte "Valider" est présent.
+
+![bouton valider](/assets/Figma_04_coposant/images/img_09.jpg)
+
+Dans un premier temps, sélectionne ton composant. Crée une nouvelle propriété de type texte depuis la barre latérale droite.
+
+![ajout de la props text](/assets/Figma_04_coposant/images/img_10.jpg)
+
+Une modale s'ouvre dans laquelle tu auras deux informations à renseigner :
+
+- Le nom de la propriété : ici, nous allons choisir un nom qui nous permettra de bien comprendre qu'il s'agit du texte inhérent au bouton. Nous pouvons l'appeler **TextButton**.
+- La valeur : correspondra à la valeur par défaut. Pour vérifier ici que notre propriété fonctionne bien lorsque nous allons l'activer, nous allons choisir un mot (ou verbe d'action) différent de "Valider". Nous prendrons "Annuler" pour tester notre texte.
+
+![ajout text-button](/assets/Figma_04_coposant/images/img_11.jpg)
+
+## Liaison de la propriété
+
+Notre propriété est bien présente dans notre barre latérale droite, cependant, cette dernière comporte un symbole juste à côté.
+En passant au survol, Figma te donne une information : _Not used within component_.
+
+![not used within component](/assets/Figma_04_coposant/images/img_12.jpg)
+
+Ce dernier t'informe que bien que la propriété ait été créée, elle n'est pas liée, et par conséquent pas appliquée à l'élément que tu souhaites changer dans ton composant : ton texte.
+Il faut donc de ce fait appliquer cette propriété à ce dernier.
+
+Il te suffit alors de double cliquer sur la zone de texte qui va être liée à ta propriété :
+
+![selection du texte](/assets/Figma_04_coposant/images/img_13.jpg)
+
+Tu constateras également que ta barre latérale droite change, avec un encart dédié au texte :
+
+![propriété non liée](/assets/Figma_04_coposant/images/img_14.jpg)
+
+Tu retrouves notamment notre premier texte, **Valider** qui est le texte que nous avions mis au début dans notre bouton.
+À gauche de cette zone de texte, une petite icône te permettra de lier cette zone de texte à la propriété que nous venons de créer.
+En cliquant dessus, tu retrouveras la propriété en question :
+
+![props liée](/assets/Figma_04_coposant/images/img_15.jpg)
+
+La liaison à cette nouvelle propriété va opérer 2 changements.
+Tout d'abord, la liaison à la propriété dans la barre latérale droite est appliquée :
+
+![liaison](/assets/Figma_04_coposant/images/img_16.jpg)
+
+Ensuite, le texte que nous avions défini lorsque nous avions créé notre propriété, **Annuler** est lui aussi présent :
+
+![changement vers annuler](/assets/Figma_04_coposant/images/img_17.jpg)
+
+## Mise en pratique
+
+Maintenant que notre composant est paramétré, nous allons pouvoir le tester.
+En accédant à tes **Assets**, tu retrouveras ton bouton :
+
+![assets](/assets/Figma_04_coposant/images/img_18.jpg)
+
+En récupérant notre instance de bouton, il est désormais possible de changer le texte, en nous rendant dans la barre latérale droite de notre document :
+
+![annuler](/assets/Figma_04_coposant/images/img_19.jpg)
+
+Il sera alors possible de renseigner le texte de notre choix.
+
+<Alert type="warning">
+
+Pour rappel, les textes doivent être changés directement dans la barre latérale droite dès lors qu'une propriété de texte a été appliquée à un composant. Cela permet notamment que chaque instance ait son propre texte, sans pour autant modifier les autres instances.
+
+</Alert>
+
+<Alert type="info">
+
+Ces propriétés ne supportent pas le texte « riche », il n'est par exemple pas possible de définir une liste à puces.
+
+</Alert>
+
+# La propriété de _permutation d'instance_ (swap instance)
+
+L'instance swap permet d'_échanger un composant avec un autre_ directement depuis le panneau de propriétés. Cette propriété est par exemple très utile dans le cadre où l'on souhaite modifier une icône dans un bouton.
+
+<Alert type="info">
+
+Puisqu'il s'agit d'échanger un composant avec un autre, dans le cadre d'un changement d'icônes il faut veiller à ce que celles-ci soient à l'origine des composants.
+
+</Alert>
+
+## Choix des icônes
+
+Dans un premier temps, nous allons choisir 2 icônes via un plugin pour pouvoir gagner du temps. Nous allons choisir ici Feather Icons.
+
+![feather icons](/assets/Figma_04_coposant/images/img_20.jpg)
+
+Dans notre exemple, nous avons choisi deux icônes d'ajout différentes :
+
+![add icon](/assets/Figma_04_coposant/images/img_21.jpg)
+
+Pour rappel, afin que ces icônes soient utilisables et que l'instance swap fonctionne, des instances doivent être existantes. De ce fait, les icônes doivent être en premier lieu transformés en composants pour en obtenir des instances par la suite.
+
+Assures toi par conséquent de bien transformer tes icônes en composants.
+
+![add component](/assets/Figma_04_coposant/images/img_22.jpg)
+
+Maintenant que nos composants sont créés, nous allons choisir l'une des deux instances pour l'intégrer directement à notre bouton.
+
+Dans notre exemple, nous avons choisi l'instance **plus-circle**.
+
+![add component](/assets/Figma_04_coposant/images/img_23.jpg)
+
+Pour rappel, pour vérifier qu'il s'agit d'une instance, vérifies que le symbole de ton icône est un petit losange vide. Il s'agit du symbole des instances sur Figma.
+![instance-rappel](/assets/Figma_04_coposant/images/img_24.jpg)
+
+## Création de la propriété
+
+Sélectionnes par la suite ton composant pour y ajouter ta propriété _instance swap_.
+
+![instance-swap](/assets/Figma_04_coposant/images/img_25.jpg)
+
+À l'instar des autres propriétés, prends le soin de choisir un nom de propriété bien compréhensible. Étant donné que le but de cette propriété est de changer l'icône de notre bouton, nous opterons pour une dénomination telle que **SwapIcon** ou encore **ChangeIcon**. En dessous, nous pourrons définir quelle icône sera utilisée par défaut.
+
+Nous allons par la suite choisir notre valeur par défaut. En parcourant tous les composants disponibles, nous retrouvons les deux icônes que nous avons définis au préalable. Nous choisirons ici l'icône _plus-circle_.
+
+![add instance](/assets/Figma_04_coposant/images/img_26.jpg)
+
+## Liaison de la propriété
+
+Notre propriété est créée, mais comme pour la propriété de texte précédemment réalisée, nous constatons que cette dernière n'est pas liée. (Pour rappel, la petite alerte **Not used within component** nous donne cette information.
+
+![change icon within component](/assets/Figma_04_coposant/images/img_27.jpg)
+
+Il est donc primordial de la lier afin de rendre cette propriété exploitable.
+
+Nous allons pour ce faire double cliquer dans notre bouton pour ne sélectionner que l'icône :
+
+![instance add](/assets/Figma_04_coposant/images/img_28.jpg)
+
+La barre latérale droite change, et, tout comme pour le texte, nous retrouvons les informations de notre icône. Nous n'avons plus qu'à la lier à notre propriété précédemment créée :
+
+![propriété à lier](/assets/Figma_04_coposant/images/img_29.jpg)
+
+Désormais, la propriété est bien liée à notre élément d'icône :
+
+![changement icone](/assets/Figma_04_coposant/images/img_30.jpg)
+
+## Mise en pratique
+
+Tout comme pour la propriété de texte, il est possible de tester le changement d'icônes dans notre bouton.
+
+En prenant une instance de notre bouton, toujours via les **Assets**, nous en retrouvons un prêt à l'emploi.
+
+En le sélectionnant, il est possible de retrouver une liste déroulante dans laquelle nous retrouverons tous nos composants, et notamment nos deux icônes :
+
+![choisir icone](/assets/Figma_04_coposant/images/img_31.jpg)
+
+Il est alors possible d'effectuer la modification via cette liste déroulante pour appliquer l'icône d'ajout, mais carrée :
+
+![square](/assets/Figma_04_coposant/images/img_32.jpg)
+
+<Alert type="info">
+
+Dans le cadre de notre exemple, nous avons choisi de permuter seulement deux icônes. Toutefois, il sera possible d'ajouter autant d'icônes que nécessaire en fonction de nos besoins!
+
+</Alert>
+
+# La propriété _booléenne_ (boolean)
+
+Les propriétés booléennes vont permettre d'**activer ou de désactiver la visibilité d'un élément** au sein du composant. Les booléens peuvent prendre deux valeurs : vrai ou faux.
+
+Dans le cas d'un bouton par exemple, cette propriété peut être d'une grande utilité selon la volonté de disposer une icône soit à droite, soit à gauche du texte.
+Pour l'exemple ci-dessous, nous allons seulement procéder à l'affichage de l'icône à gauche de notre texte.
+
+## Mise en place des icônes
+
+Dans un premier temps, dispose ton icône à gauche de ton bouton.
+
+![icon left](/assets/Figma_04_coposant/images/img_33.jpg)
+
+<Alert type="info">
+
+Bien que les deux icônes soient visibles pour le moment, l'une des deux viendra à apparaitre ou disparaitre en fonction de l'affichage de l'autre. Il est donc normal qu'à l'origine, les deux icônes soient visibles.
+
+</Alert>
+
+## Création de la propriété
+
+Positionnes toi sur ton composant, et, comme pour les autres propriétés vues précédemment, crées une propriété de type **Boolean**.
+
+![booléen](/assets/Figma_04_coposant/images/img_34.jpg)
+
+À l'instar des autres propriétés, nous nous devons de donner une action claire sur ce que provoque le booléen ou non.
+Pour rappel, le booleen fonctionne sur un principe de vrai/faux. De ce fait, il est habituel de définir le nom du booléen sous forme de question : étant donné que nous cherchons à activer l'affichage d'une icône, nous pouvons réfléchir à une dénomination telle que **ShowIcon**. Si elle est vraie, **ShowIcon** s'affiche. Et si elle est fausse, elle ne s'affiche pas.
+
+![booleen defaut](/assets/Figma_04_coposant/images/img_35.jpg)
+![show-icon](/assets/Figma_04_coposant/images/img_36.jpg)
+
+## Liaison de la propriété
+
+Encore une fois, notre propriété est bien créée. Toutefois elle n'est pas liée à l'élément que nous souhaitons faire apparaitre ou disparaitre, notre icône.
+
+Il te suffit de double cliquer sur ton icône afin d'établir la liaison.
+
+<Alert type="warning">
+
+Attention! Ici il faut lier l'icône via **Appearance** dans la barre latérale droite de ton Figma. Puisque nous souhaitons changer l'apparence de notre bouton et de son icône, c'est à cet endroit que nous devons lier notre propriété.
+
+</Alert>
+
+Rends-toi donc dans la partie **Appearance** pour lier ton icône à la propriété **ShowIcon** créée :
+
+![activate showIcon](/assets/Figma_04_coposant/images/img_37.jpg)
+
+Ici encore, si le lien bien été établi, la propriété apparait en surbrillance violette.
+
+![liaison show icon](/assets/Figma_04_coposant/images/img_38.jpg)
+
+## Mise en pratique
+
+Pour tester ton bouton, rends-toi une nouvelle dans tes _Assets_ pour récupérer une instance de ton bouton.
+En sélectionnant ton bouton, tu constates que la propriété **ShowIcon** est bien présente, sous forme de bouton toggle. Il ne te reste plus qu'à activer le toggle ou le désactiver pour affecter l'affichage de ton icône!
+
+![booleen swap](/assets/Figma_04_coposant/images/img_39.jpg)
+
+Il te sera possible de créer autant de booléens que désiré en fonction des différents cas de figure de tes composants. Dans le cas d'un bouton par exemple, il est possible de créer un booléen gauche et droite pour affiche ou masquer une icône à la droite ou à la gauche du texte.
+
+![Boolean](/assets/Figma_04_coposant/images/img_40.gif)
+
+Exemple de propriétés booléennes appliquées sur des icônes à gauche et à droite du texte, permettant différentes variations pour un même composant. _Source : UXPlanet._
+
+<Alert type="info">
+
+Contrairement aux variantes, il ne sera pas possible de créer de l'interaction entre ces deux états puisqu'il ne s'agit que d'un seul et même élément.
+
+</Alert>
+
+# Exercice
+
+## ☝️ Résumé
+
+- Les propriétés de composant permettent une **meilleure gestion des documents de conception et des design systems**.
+- Figma propose quatre propriétés de composant : **les variantes, les booléens, le contenu textuel et la permutation d'instances**.
+
+---
+
+## 💪 Challenge
+
+En reprenant les notions vues précédemment, réalise un bouton avec **variantes pour les états de hover et de clic**, comprenant **une propriété booléenne lui permettant d'arborer ou non une icône**, ainsi qu'une **propriété de texte**.
+En bonus, tu peux utiliser la propriété de swap instance pour que l'instance du composant de l'icône puisse être remplacée par d'autres. Partage ta solution via un lien Figma accessible à tous.
+
+#### 🧐 Critères d'acceptation
+
+- Un composant est créé
+- Le composant comprend les propriétés de variantes, booléenne et de texte
+- Bonus : Le composant comprend une propriété d'instance swap sur l'icône

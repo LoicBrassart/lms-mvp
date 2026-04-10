@@ -1,0 +1,66 @@
+---
+interface Props {
+  type?: "info" | "warning" | "error" | "success";
+}
+const { type = "info" } = Astro.props;
+
+const icons: Record<string, string> = {
+  info:    "ℹ️",
+  warning: "⚠️",
+  error:   "❌",
+  success: "✅",
+};
+---
+
+<aside class={`alert alert--${type}`} role="note">
+  <span class="alert__icon" aria-hidden="true">{icons[type]}</span>
+  <div class="alert__body"><slot /></div>
+</aside>
+
+<style>
+  .alert {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .alert__icon {
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-top: 0.1em;
+  }
+
+  .alert__body :global(p) {
+    margin: 0;
+  }
+
+  .alert--info {
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+    color: var(--color-text);
+  }
+
+  .alert--warning {
+    background: color-mix(in srgb, #f59e0b 10%, transparent);
+    border-color: color-mix(in srgb, #f59e0b 35%, transparent);
+    color: var(--color-text);
+  }
+
+  .alert--error {
+    background: color-mix(in srgb, #ef4444 10%, transparent);
+    border-color: color-mix(in srgb, #ef4444 35%, transparent);
+    color: var(--color-text);
+  }
+
+  .alert--success {
+    background: color-mix(in srgb, #22c55e 10%, transparent);
+    border-color: color-mix(in srgb, #22c55e 35%, transparent);
+    color: var(--color-text);
+  }
+</style>

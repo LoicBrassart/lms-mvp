@@ -1,0 +1,192 @@
+---
+title: "Figma 02 - Introduction aux Styles"
+description: "migrated content"
+tags: []
+publishedAt: 2026-04-10
+difficulty: easy
+draft: false
+---
+
+Lors de la conception d'une interface, certains éléments de style vont être récurrents. Les polices de la charte graphique vont par exemple être appliqués sur l'ensemble de vos designs. Les styles vont vous permettre de conserver une cohérence sur l'ensemble de l'aspect des éléments.
+
+![](/assets/Figma_02/images/img_01.png)
+
+# 🤓 À la fin de cette quête vous saurez :
+
+- ✅ À quoi servent les styles sur Figma
+- ✅ Créer des styles et les appliquer à des éléments
+- ✅ Editer des styles
+
+---
+
+## Qu'est-ce que les styles ?
+
+Les styles permettent de définir certaines propriétés que l'on peut ensuite réutiliser et appliquer à plusieurs éléments. Plutôt que de paramétrer de nouveau chaque élément ajouté à vos designs, les styles nous permettent de leur appliquer rapidement ces paramètres, définis en une fois.
+
+<Tabs>
+<Tab label="UI 2">
+
+![Style de couleur](/assets/Figma_02/images/img_02.jpg)_Source : figma.com_
+
+</Tab>
+<Tab label="UI 3">
+
+![colors](/assets/Figma_02/images/img_03.png)
+
+</Tab>
+</Tabs>
+
+Il est possible de créer des styles pour les couleurs, le texte, les effets et les grilles de mise en page. Le style peut être créé pour les propriétés suivantes :
+
+- **Couleur :** remplissage, contour, couleur de fond
+- **Texte :** famille de police, taille, interligne, crénage
+- **Effets :** flou de calque, flou de fond, ombre portée, ombre interne
+- **Grilles :** colonnes, rangées, grille
+
+---
+
+## Créer et appliquer des styles
+
+Comme vu précédemment, il est possible d'appliquer une variété de styles aux éléments de notre design. La démarche à suivre est similaire pour l'ensemble des types de style :
+
+- Sélectionnez l'objet (ou la frame dans le cas d'une grille) pour lequel vous souhaitez créer un style en lui appliquant les attributs souhaités
+- Cliquez sur l'icône "Style" (4 ronds qui forment un carré) situé sur la panneau propriétés à droite. Cliquez ensuite sur l'icône "Create style" (+). Vous devez vous rendre dans la section appropriée. Pour un style de couleur par exemple, nous irions créer notre style dans la section "Fill", "Stroke" ou "Background Color".
+- Nommez votre style puis cliquez sur le bouton "Create style"
+
+<Tabs>
+<Tab label="UI 2">
+
+![Créer un style de texte](/assets/Figma_02/images/img_04.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![Créer un style](/assets/Figma_02/images/img_05.png)
+
+</Tab>
+</Tabs>
+
+Sur l'exemple ci-dessus, nous définissons un style à appliquer aux titres de premier niveau (H1). Nous appliquons certains attributs à un calque de texte (police de caractères, graisse, taille) pour que celui-ci ait l'aspect souhaité. Nous créons un style d'après celui-ci en allant sur la section « Text » du panneau de droite, puis en cliquant sur l'icône « Style » et enfin sur l'icône « Create style » présente sur la fenêtre des styles de texte (« Text styles »).
+
+Lorsque votre style est créé, vous pouvez l'appliquer à d'autres éléments. Pour ce faire, sélectionnez l'élément auquel vous souhaitez appliquer le style et cliquez sur l'icône "style" de la section voulue. Pour appliquer un style de couleur à une forme par exemple, il suffira de se rendre dans la section "Color" du panneau de droite, de cliquer sur l'icône "Style" puis de choisir le style souhaité dans ceux existants.
+
+<Tabs>
+<Tab label="UI 2">
+
+![Appliquer un style](/assets/Figma_02/images/img_06.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![Appliquer style de texte](/assets/Figma_02/images/img_07.png)
+
+</Tab>
+</Tabs>
+
+Sur cette exemple, nous appliquons le style créé précédemment ("Heading-1") à un calque de texte.
+
+---
+
+## Editer des styles
+
+Vous pouvez éditer les styles créés via le panneau de droite, en passant votre souris sur le style à modifier et en cliquant sur l'icône « Edit style ».
+
+<Tabs>
+<Tab label="UI 2">
+
+![Editer un style](/assets/Figma_02/images/img_08.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![Editer des styles](/assets/Figma_02/images/img_09.png)
+
+</Tab>
+</Tabs>
+
+L'exemple ci-dessus reprend le style de texte créé précédemment. Nous pourrions modifier les propriétés appliquées par le biais du panneau Edit style.
+
+Il est également possible de détacher un élément d'un style qui lui était appliqué. Pour ce faire, sélectionnez l'élément que vous souhaitez libérer du style, puis cliquer sur l'icône « Detach style » situé à droite du style appliqué. Cette icône apparaît au survol de la souris sur le style.
+
+<Tabs>
+<Tab label="UI 2">
+
+![Détacher le style](/assets/Figma_02/images/img_10.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![détacher le style](/assets/Figma_02/images/img_11.png)
+
+</Tab>
+</Tabs>
+
+Sur cet exemple, nous détachons l'élément sélectionné du style qui lui était appliqué.
+
+Pour supprimer complètement un style, rendez vous sur l'icône "Style" de la section associée, sélectionnez le style que vous souhaitez supprimer puis faites un clique droit et choisissez "Delete style".
+
+---
+
+## Styles locaux et librairies partagées
+
+### Les styles locaux
+
+Les styles locaux sont les styles présents dans votre fichier. Ces styles sont accessibles via le panneau de droite quand aucun élément n'est sélectionné, ou à partir de l'icône style présente dans les sections.
+
+<Tabs>
+<Tab label="UI 2">
+
+![Styles locaux](/assets/Figma_02/images/img_12.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![focus styles](/assets/Figma_02/images/img_13.png)
+
+</Tab>
+</Tabs>
+
+L'exemple ci-dessus affiche les styles locaux appliqués, à savoir un style de texte et un style de couleur.
+
+### Partager et réutiliser des styles dans d'autres projets
+
+Les styles que vous avez créés peuvent être utilisés au sein d'autres projets et partagés avec vos collaborateurs au sein d'une librairie.
+
+Pour ce faire, rendez-vous dans le panneau "Asset" situé sur le panneau gauche et cliquez sur l'icône librairie (livre ouvert). Cliquez ensuite sur le bouton "Publish" de la section "Current file". Vous pourrez alors entrer une description sur les changements effectués si besoin, ainsi que désélectionner certains styles que vous ne souhaiteriez pas voir publiés. Si vous n'avez pas besoin d'effectuer ces actions, ou les avez déjà réalisées, vous pouvez cliquer sur "Publish styles".
+
+<Tabs>
+<Tab label="UI 2">
+
+![librairie](/assets/Figma_02/images/img_14.jpg)
+
+</Tab>
+<Tab label="UI 3">
+
+![](/assets/Figma_02/images/img_15.png)
+
+</Tab>
+</Tabs>
+L'exemple ci-dessus illustre les étapes expliquées précédemment.
+
+---
+
+## ☝️ Résumé
+
+- Les styles permettent d'**homogénéiser le design** au sein des différents écrans d'un projet et sont un **gain de temps** pour les designers dans leur processus de conception.
+- **Les styles peuvent être partagés** dans différents projets d'équipe et accessible aux collaborateurs de ces projets.
+
+## 💪 Challenge
+
+Web designer dans une agence de design, vous épaulez un collègue sur la conception d'un site e-commerce. Celui-ci vous demande de préparer le terrain en créant des styles, afin d'organiser au mieux le fichier et d'appliquer correctement la charte graphique prédéfinie. En reprenant les notions vues précédemment, créez des styles pour la typographie.
+
+**Typographie :**
+
+- Titres : H1 Inter Bold taille 64 / H2 Inter Bold taille 48 / H3 Inter Semi-bold taille 36
+- Paragraphes : Inter Regular taille 18 Interligne 20
+
+Partagez votre solution sous forme de lien Figma accessible à tous.
+
+## 🧐 Critères d'acceptation
+
+- Création de style pour chaque élément
+- Nom des styles clairs et logiques

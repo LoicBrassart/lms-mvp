@@ -1,0 +1,208 @@
+---
+title: "Figma 03 - Les composants"
+description: "migrated content"
+tags: []
+publishedAt: 2026-04-10
+difficulty: easy
+draft: false
+---
+
+Une interface comprend généralement des éléments exploités **à plusieurs reprises**. Ces éléments peuvent être convertis en **composants** afin d'offrir un gain de temps au designer et d'assurer une cohérence au sein de l'interface.
+
+![ ](/assets/Figma_03_Composant/images/img_01.png)_Source : toptal.com_
+
+## 🤓 À la fin de cette quête, vous saurez
+
+- ✅ Ce qu'est un composant et les avantages qu'il offre
+- ✅ Créer un composant
+- ✅ Ajouter des variantes
+- ✅ Ajouter de l'interactivité aux composants
+
+---
+
+## Qu'est-ce qu'un composant ?
+
+Les composants sont des éléments réutilisables au sein d'une interface. Il peut s'agir de boutons ou de champs de formulaire par exemple.
+
+Créer des composants permet d'**harmoniser l'ensemble de l'interface** sur laquelle vous travaillez, mais offre également un gain de temps considérable et une meilleure organisation au sein de vos fichiers. Plutôt que de refaire ou copier vos éléments que vous replacerez à chaque fois, vous pourrez travailler avec des instances de composant accessibles facilement sur toutes vos pages et fichiers. Vous pourrez également modifier l'ensemble de ces copies en une seule fois.
+
+![ ](/assets/Figma_03_Composant/images/img_02.gif)
+
+_Source : [Dribble](https://dribbble.com/shots/6017458-UI-components?utm_source=Pinterest_Shot&utm_campaign=antonijabubalo&utm_content=UI+components&utm_medium=Social_Share)_
+
+---
+
+## La création de composant
+
+Vous pouvez créer des composants pour n'importe quel calque ou objet d'un projet.
+
+### Composant principal et instances
+
+Avant de se lancer dans la création de composant, il est important de faire la distinction entre **composant principal** et **instance**. Le "main component", "master component", ou composant principal en français va définir les propriétés du composant. Il est représenté par une icône constituée de quatre losanges. Une instance est quant à elle une copie de composant que vous pouvez réutiliser au sein de votre design. L'instance sera reliée au composant principal, ce qui lui permettra d'être automatiquement mise à jour lorsque des modifications seront apportées à celui-ci. L'instance est représentée par une icône de losange seul.
+
+![ ](/assets/Figma_03_Composant/images/img_03.png)
+_Source : help.figma.com_
+
+### Créer un composant
+
+Il est possible de créer un composant de diverses manières. Vous devez dans un premier temps sélectionner le ou les calques à intégrer dans votre composant. Vous pouvez ensuite :
+
+- Cliquer sur l'icône « Create component» dans la barre d'outils (UI2) / sur le panneau design (UI3)
+- Faire un clic droit sur votre sélection et choisir « Create component »
+- Utiliser les raccourcis clavier Option + Command + K (Mac) ou Ctrl + Alt + K (Windows)
+
+<Tabs>
+<Tab label="UI3 (nouvelle version)">
+
+![](/assets/Figma_03_Composant/images/img_04.jpg)
+_L'option "Create Component" depuis le panneau Design_
+
+</Tab>
+<Tab label="UI2 (ancienne version)">
+
+![créer un composant](/assets/Figma_03_Composant/images/img_05.png)
+_L'option "Create Component" depuis la barre d'outils_
+
+</Tab>
+</Tabs>
+
+Vous trouverez ensuite les calques de votre composant imbriqués à l'intérieur d'une nouvelle frame arborant l'icône violette relative aux composants.
+
+### Insérer des instances
+
+Vous pouvez désormais utiliser des instances de votre composant au sein de vos designs. Plusieurs méthodes vous permettent d'effectuer cette action :
+
+- **Panneau Assets :** Sélectionnez l'onglet "Assets" sur le panneau de droite ou utilisez la commande Option 2 sur Mac, Alt + 2 pour Windows. Cliquez sur le composant que vous souhaitez insérer puis glissez le sur votre espace de travail pour que l'instance se crée.
+- **Ressources :** Cliquez sur l'icône "Ressources" de la barre d'outils ou utilisez la commande Shift + i . Sélectionnez le composant que vous souhaitez insérer puis double cliquez dessus ou glissez le sur votre espace de travail pour créer une instance.
+- **Copier/Dupliquer :** Au sein d'un même fichier, vous pouvez utiliser le copier coller (Ctrl + c / Ctrl + v pour Windows, Command + c / Command + v pour Mac), la duplication (Ctrl + d pour Windows, Command + d pour Mac) ou le glisser pour copier (Sélectionner l'élément, Appuyer sur Alt pour Windows, Option sur Mac puis glisser et relâcher)
+
+<Tabs>
+<Tab label="UI3 (nouvelle version)">
+
+![](/assets/Figma_03_Composant/images/img_06.jpg)
+_L'option "Insérer une instance" depuis le panneau Assets (à gauche)_
+
+</Tab>
+<Tab label="UI2 (ancienne version)">
+
+![](/assets/Figma_03_Composant/images/img_07.jpg)
+_L'option "Insérer une instance" depuis le panneau Assets (à gauche)_
+
+</Tab>
+</Tabs>
+
+---
+
+## Ajouter des variants
+
+L'ajout de variantes permet d'appliquer différentes propriétés au même composant. Lorsque l'on crée un bouton par exemple, celui-ci peut voir son style varier au survol ou au clic.
+Plutôt que de créer distinctement les composants pour chaque état, les variantes donnent la possibilité de les grouper dans un seul et même conteneur, à savoir **un composant multi-états**.
+
+![Variants Figma](/assets/Figma_03_Composant/images/img_08.jpg)
+
+Il est possible d'ajouter des variantes de diverses manières. Vous devez dans un premier temps **sélectionner le composant** auquel vous souhaitez ajouter ces variantes. Vous pouvez ensuite :
+
+- Cliquer sur l'icône "Add Variant" située dans la barre d'outils sur l'UI2 (à l'endroit où se situait précédemment l'icône "Create component") / du panneau Design sur l'UI3 (à l'endroit où se situait précédemment l'icône "Create component")
+- Faire un clic droit sur votre sélection et Main Component > Add variant
+- Aller sur le panneau de droite et ajouter "Variant" dans les propriétés
+
+<Tabs>
+<Tab label="UI3 (nouvelle version)">
+
+![](/assets/Figma_03_Composant/images/img_09.jpg)
+_L'option "Ajouter un variant" depuis le panneau Design (à droite)_
+
+</Tab>
+<Tab label="UI2 (ancienne version)">
+
+![](/assets/Figma_03_Composant/images/img_10.jpg)
+_L'option "Ajouter un variant" depuis la barre d'outils (en haut)_
+
+</Tab>
+</Tabs>
+
+Vous pourrez ensuite sélectionner et retoucher la variante pour lui appliquer le style souhaité. Sur l'exemple ci-dessus, nous avons ajouté une ombre portée à notre variante de survol.
+
+#### Renommer le variant
+
+<Tabs>
+<Tab label="UI3 (nouvelle version)">
+
+![](/assets/Figma_03_Composant/images/img_11.jpg)
+_Renommer une propriété et un variant depuis le panneau Design (à droite)_. Ici, nous avons renommé "property 1" par Etat pour identifier plus facilement que cette propriété de variant permet de modifier l'état de notre bouton. En sélectionnant le variant fraîchement créé, nous le renommons "Survol" pour identifier quel état il représente.
+
+</Tab>
+<Tab label="UI2 (ancienne version)">
+
+![](/assets/Figma_03_Composant/images/img_12.jpg)
+_Renommer une propriété et un variant depuis le panneau Design (à droite)_. Ici, nous avons renommé "property 1" par Etat pour identifier plus facilement que cette propriété de variant permet de modifier l'état de notre bouton. En sélectionnant le variant fraîchement créé, nous le renommons "Survol" pour identifier quel état il représente.
+
+</Tab>
+</Tabs>
+
+<Alert type="info">
+  <h2>Nommez correctement les composants</h2>
+  Réfléchissez bien à la nomenclature de chaque composant. Vous serez certainement amené à
+  travailler avec des collaborateurs, il est donc important que vos composants et variantes soient
+  nommés de façon claire, simple et logique afin de faciliter leur usage. Exemple : Un bouton
+  principal large en état par défaut pourrait être nommé Button/Primary/Large/Default (Type de
+  composant/Variation/Taille/Etat)
+</Alert>
+
+---
+
+## Rendre un composant interactif
+
+Il est possible de créer des interactions entre les différents états d'un composant. Par exemple, passer de l'état par défaut d'un bouton à celui de survol au passage de la souris.
+
+Pour ajouter de l'interaction, rendez vous sur **l'onglet "Prototype"** du panneau de droite. Cliquez sur la variante de départ de votre interaction dans votre ensemble de composant puis cliquez sur la petite icône avec un + bleu et glissez la vers la variante de destination. Vous pouvez également obtenir le même résultat en appuyant sur le + de la section Interactions du panneau Prototype puis en définissant l'action sur "Change to" et choisir la variante de destination.
+
+![composant interactif](/assets/Figma_03_Composant/images/img_13.jpg)
+Sur cet exemple, nous avons créé un composant interactif dont l'état change au survol de la souris. Pour ce faire, nous avons choisi l'état par défaut comme départ de l'interaction et avons défini le survol comme élément déclencheur ("While hovering"). Lorsque cette action est produite par l'utilisateur, le composant passe de l'état par défaut à l'état de survol, à savoir sa variante avec ombre portée. Pour que la transition entre ces deux états ne soit pas trop brutale, nous avons définit le type d'animation en "Smart animate".
+
+Les instances de votre composant sont désormais interactives. Vous pouvez visualiser ces interactions dans la vue de présentation, accessible via la barre d'outil en cliquant sur l'icône play.
+
+<Alert type="warning">
+  <h2>Composants interactifs</h2>
+  Il n'est possible de créer des composants interactifs qu'avec les variantes d'un même ensemble de
+  composants ("component set").
+</Alert>
+
+---
+
+## Récap 🎬
+
+Revenons en vidéo sur les notions abordées 👇
+
+- Nous créons un composant. Il est possible de le faire via l'option "Create component" visible après un clic droit, une commande clavier, ou via l'icône dédiée sur le panneau de droite. Nous choisissons cette dernière option.
+- Nous créons un variant via l'icône dédiée sur le panneau de droite.
+- Nous renommons ce nouveau variant
+- Nous insérons une instance de composant sur l'écran que nous sommes en train de concevoir (la frame nommée "Mon design")
+- Nous rendons le composant interactif en nous rendant sur la tab "Prototype" du panneau de droite et en créant un lien entre les deux états
+- Nous prévisualisons l'écran sur lequel est inséré une instance de composant pour tester l'interactivité au survol de la souris
+
+---
+
+## ☝️ Résumé
+
+- Les composants sont des **éléments réutilisables** au sein d'une interface. Leur utilisation au sein de Figma permet de conserver une interface harmonieuse, dont les éléments ont des règles visuelles bien établies, tout en offrant un véritable gain de temps dans le processus de conception.
+- Un composant "master" définit les propriétés du composant auxquelles des "instances" sont reliées. **La modification du composant master se répercute sur l'ensemble des instances** tandis que la modification d'une instance n'impliquera qu'elle.
+
+---
+
+## 💪 Challenge
+
+En reprenant les notions vues précédemment, réalisez un bouton « toggle switch » avec les états désactivé et activé. Le bouton doit être interactif afin de passer d'un état à l'autre au clic. Partagez votre solution via un lien Figma accessible à tous (bouton "Share" en haut à droite de l'interface) dans le champ "Lien vers la solution".
+
+![toggle switch](/assets/Figma_03_Composant/images/img_14.gif)
+
+_Exemple de toggle switch_
+
+Pour le réaliser, il faudra créer un composant utilisant un variant pour avoir un état lorsqu'il est désactivé (généralement grisé et avec le cercle à gauche), et un état activé (par exemple vert, et avec le cercle à droite).
+Il faudra ensuite rendre interactif ce composant en créant une interaction au clic pour passer d'un état à l'autre. Il s'agit du même procédé que celui que nous avons utilisé plus haut pour réaliser une interaction au survol de la souris sur notre bouton, mais cette fois-ci elle se fera au clic de la souris.
+
+## 🧐 Critères d'acceptation
+
+- Création d'un composant
+- Ajout de variant
+- Composant interactif

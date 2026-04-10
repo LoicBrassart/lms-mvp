@@ -2,6 +2,10 @@
 import { getCollection, getEntry, render } from "astro:content";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 import { COLLECTIONS } from "../../lib/collections";
+import Alert from "../../components/content/Alert.astro";
+import Tab from "../../components/content/Tab.astro";
+import Tabs from "../../components/content/Tabs.astro";
+import YoutubeEmbed from "../../components/content/YoutubeEmbed.astro";
 
 export async function getStaticPaths() {
   const quests = await getCollection("quests", ({ data }) => !data.draft);
@@ -41,7 +45,7 @@ const relatedCourse = quest.data.courseSlug
       </div>
     )
   }
-  <Content />
+  <Content components={{ Alert, Tab, Tabs, YoutubeEmbed }} />
 </ContentLayout>
 
 <style>

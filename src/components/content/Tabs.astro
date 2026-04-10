@@ -1,0 +1,96 @@
+---
+---
+
+<div class="tabs-container">
+  <div class="tabs-nav" role="tablist"></div>
+  <div class="tabs-panels">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".tabs-container").forEach((container) => {
+    const nav = container.querySelector<HTMLElement>(".tabs-nav")!;
+    const panels = container.querySelectorAll<HTMLElement>(".tab-panel");
+
+    panels.forEach((panel, i) => {
+      const label = panel.dataset.label ?? `Tab ${i + 1}`;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tab-btn";
+      btn.textContent = label;
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+
+      if (i === 0) {
+        btn.classList.add("active");
+      } else {
+        panel.hidden = true;
+      }
+
+      btn.addEventListener("click", () => {
+        nav.querySelectorAll<HTMLButtonElement>(".tab-btn").forEach((b) => {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        panels.forEach((p) => { p.hidden = true; });
+
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        panel.hidden = false;
+      });
+
+      nav.appendChild(btn);
+    });
+  });
+</script>
+
+<style>
+  .tabs-container {
+    margin: 1.25rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
+  }
+
+  .tabs-nav :global(.tab-btn) {
+    flex-shrink: 0;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.82rem;
+    font-family: inherit;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    margin-bottom: -1px;
+  }
+
+  .tabs-nav :global(.tab-btn:hover) {
+    color: var(--color-text);
+  }
+
+  .tabs-nav :global(.tab-btn.active) {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .tabs-panels {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .tabs-panels :global(.tab-panel > img) {
+    max-width: 100%;
+    border-radius: calc(var(--radius) / 2);
+  }
+</style>
